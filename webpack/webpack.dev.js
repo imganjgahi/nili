@@ -1,10 +1,10 @@
 
-
+const webpack = require("webpack")
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
     mode: "development",
-    entry: './src/index.tsx',
+    entry: {main: ['webpack-hot-middleware/client?reload=true','./src/index.tsx']},
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
@@ -47,6 +47,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HTMLWebpackPlugin({
             template: './src/index.html'
         })
