@@ -3,9 +3,6 @@ const jwt = require('jsonwebtoken');
 let db = require('../db/database')
 
 
-exports.userTest = (req, res) => res.json({ msg: "users routes was worked" });
-
-
 exports.userRegister = (req, res) => {
     var errors = {}
     if (!req.body.password) {

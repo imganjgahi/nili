@@ -7,10 +7,6 @@ const passport = require('passport');
 const UserController = require('../controllers/usersController');
 
 
-// test uri
-router.get('/test', UserController.userTest);
-
-
 //register user
 router.post('/register', UserController.userRegister);
 
