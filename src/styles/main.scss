@@ -1,7 +1,32 @@
+@font-face {
+    font-family: "Shabnam";
+    src: url("fonts/Shabnam-FD.eot");
+    src: url("fonts/Shabnam-FD.eot?#iefix") format("embedded-opentype"), url("fonts/Shabnam-FD.woff") format("woff"), url("fonts/Shabnam-FD.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Shabnam";
+    src: url("fonts/Shabnam-Bold-FD.eot");
+    src: url("fonts/Shabnam-Bold-FD.eot?#iefix") format("embedded-opentype"), url("fonts/Shabnam-Bold-FD.woff") format("woff"), url("fonts/Shabnam-Bold-FD.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Shabnam";
+    src: url("fonts/Shabnam-Light-FD.eot");
+    src: url("fonts/Shabnam-Light-FD.eot?#iefix") format("embedded-opentype"), url("fonts/Shabnam-Light-FD.woff") format("woff"), url("fonts/Shabnam-Light-FD.ttf") format("truetype");
+    font-weight: 300;
+}
+
 $bg-color : #12695e;
 $color: white;
 
 body {
     background-color: $bg-color;
     color: $color;
+    text-align: right;
+    margin: 0;
+    direction: rtl;
+    font-family: Shabnam, tahoma, serif;
 }
