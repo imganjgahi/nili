@@ -30,3 +30,6 @@ body {
     direction: rtl;
     font-family: Shabnam, tahoma, serif;
 }
+@import "./colors";
+@import "./Navbar.scss";
+@import "./modals.scss";

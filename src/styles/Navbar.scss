@@ -1,0 +1,28 @@
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	gap: 25px;
+	padding: 0 20px;
+	background-color: #444;
+    align-items: center;
+    .logo {
+        margin: 0;
+    }
+    .navMenu {
+        display: flex;
+        gap: 25px;
+        list-style: none
+    }
+
+    .navMenuItem {
+        cursor: pointer;
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    .navLogin {
+        cursor: pointer;
+    }
+}
