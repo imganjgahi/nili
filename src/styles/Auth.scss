@@ -3,3 +3,14 @@
 	justify-content: space-around;
 	flex-direction: row-reverse;
 }
+.LoginPanel {
+	flex-basis: 50%;
+	border-right: 1px solid #ccc;
+	padding-right: 20px;
+	box-sizing: border-box;
+	line-height: 30px;
+}
+.RegisterPanel {
+	flex-basis: 50%;
+	line-height: 30px;
+}
