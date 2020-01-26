@@ -1,3 +1,3 @@
 # NILI
 
-* a simple webPage generator based on React
+* Time Management base on Bulet Journal
