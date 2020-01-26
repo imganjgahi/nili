@@ -10,7 +10,7 @@ import Register from '../Auth/Register';
 import { Link } from 'react-router-dom';
 
 type IProps = typeof AuthActions & IAuthState & IFormProps 
-const Navbar = (props: any) => {
+const Navbar = (props: IProps) => {
     const onCancel = () => {
         props.toggleLoginModal(false)
     }

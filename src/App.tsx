@@ -1,21 +1,13 @@
 import React from 'react';
-import Navbar from './Components/Navbar/Navbar';
-import { BrowserRouter as Router,
-    Switch,
-    Route } from "react-router-dom";
-import Home from './Components/Home/Home';
-import AboutPage from './Components/AboutPage/AboutPage';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import LayoutManager from './Components/Layout/LayoutManager';
 
 const App = () => {
 
     return (
         <div className="App">
             <Router>
-                <Navbar />
-                <Switch>
-                    <Route path="/About" component={AboutPage} />
-                    <Route path="/" component={Home} />
-                </Switch>
+                    <Route path="/" component={LayoutManager} />
             </Router>
         </div>
     )
