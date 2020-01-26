@@ -39,7 +39,7 @@ export const AuthActions = {
             if(res.data){
                 //login was succeed
                 //save token on loacalStorage
-                window.localStorage.setItem("note-project", res.data.token);
+                window.localStorage.setItem("Nili", res.data.token);
                 axios.defaults.headers.common['Authorization'] = `${res.data.token}` 
                 dispatch({type: AuthActionTypes.LoginSuccess})
             }
@@ -55,7 +55,7 @@ export const AuthActions = {
     logOutRequest: (): AppAction<ActionModel> => (dispatch, getState) => {
         //remove token from storage and axios header
         axios.defaults.headers.common['Authorization'] = "" 
-        window.localStorage.removeItem("note-project");
+        window.localStorage.removeItem("Nili");
         dispatch({type: AuthActionTypes.LogOut});
     }
 };

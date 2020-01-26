@@ -22,6 +22,7 @@ const Navbar = (props: any) => {
         props.registerRequest({ email: data.email, password: data.password, fullName: data.fullName })
     }
 
+    console.log("Propas: ", props.isAuth)
     return (
         <div className="navbar">
             <Modal
@@ -40,7 +41,11 @@ const Navbar = (props: any) => {
             </Modal>
             <h1 className="logo"><Link to ="/" >NILI</Link></h1>
             <ul className="navMenu">
-                <li className="navMenuItem"><Link to="/">خانه</Link></li>
+                {props.isAuth ? (
+                    <li className="navMenuItem"><Link to="/Dashboard">داشبورد</Link></li>
+                ): (
+                    <li className="navMenuItem"><Link to="/">خانه</Link></li>
+                )}
                 <li className="navMenuItem"><Link to="/About">درباره نیلی</Link></li>
                 <li className="navMenuItem">خدمات نیلی</li>
                 <li className="navMenuItem">ارتباط با ما</li>
