@@ -33,6 +33,10 @@ require('./config/passport')(passport);
 //Routes
 server.use('/api/users', users);
 
+server.get('*', (req,res) =>{
+    res.sendFile(path.resolve(__dirname,'../public/index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`sarver is runnig on port ${PORT}`)

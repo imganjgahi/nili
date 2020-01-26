@@ -8,6 +8,7 @@ interface IProps {
     onCancel: () => void
     visiblity: boolean
     children?: any
+    width?:string
 }
 interface IState {
     isActive: boolean;
@@ -49,7 +50,7 @@ class Modal extends React.Component<IProps, IState> {
                     this.closeHandler()
                 }}></div>
 
-                <div className={modalClassName}>
+                <div className={modalClassName} style={this.props.width ? {width: this.props.width} : {}}>
                     {this.props.title && (
                         <div className="modalHeader">
                             {this.props.title}

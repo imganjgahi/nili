@@ -7,6 +7,10 @@
     align-items: center;
     .logo {
         margin: 0;
+        a {
+            color: white;
+            text-decoration: none;
+        }
     }
     .navMenu {
         display: flex;

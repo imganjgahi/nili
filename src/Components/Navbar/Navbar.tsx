@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { AuthActions } from '../../actions/Auth/action';
 import { IAuthState } from '../../actions/Auth/model';
 import { IApplicationState } from "../../store/state";
-import { FormCreator, IFormProps } from "../../Utils/FormController"
+import { IFormProps } from "../../Utils/FormController"
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
+import { Link } from 'react-router-dom';
 
-type IProps = typeof AuthActions & IAuthState & IFormProps
+type IProps = typeof AuthActions & IAuthState & IFormProps 
 const Navbar = (props: any) => {
     const onCancel = () => {
         props.toggleLoginModal(false)
@@ -37,9 +38,10 @@ const Navbar = (props: any) => {
                     </div>
                 </div>
             </Modal>
-            <h1 className="logo">NILI</h1>
+            <h1 className="logo"><Link to ="/" >NILI</Link></h1>
             <ul className="navMenu">
-                <li className="navMenuItem"><a href="#">درباره نیلی</a></li>
+                <li className="navMenuItem"><Link to="/">خانه</Link></li>
+                <li className="navMenuItem"><Link to="/About">درباره نیلی</Link></li>
                 <li className="navMenuItem">خدمات نیلی</li>
                 <li className="navMenuItem">ارتباط با ما</li>
             </ul>

@@ -6,7 +6,6 @@ export type RegisterType = {
     fullName: string;
     email: string;
     password: string;
-    confrimPassword: string;
 }
 export type LoginType = {
     email: string;
