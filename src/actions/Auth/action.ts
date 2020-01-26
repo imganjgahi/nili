@@ -1,6 +1,6 @@
 import { AppAction } from "../../store/state";
 import { AuthActionTypes } from "./actionType";
-import { ActionModel, LoginType } from "./model";
+import { ActionModel, LoginType, RegisterType } from "./model";
 import { AuthApi } from "./api";
 import axios from '../../AxiosConfig';
 
@@ -9,6 +9,26 @@ export const AuthActions = {
     //open or close login modal 
     toggleLoginModal: (open: boolean): AppAction<ActionModel> => (dispatch, getState) => {
         dispatch({ type: AuthActionTypes.LoginModal, open  });
+    },
+
+    //send request to server
+    registerRequest: (data: RegisterType): AppAction<ActionModel> => async (dispatch, getState) => {
+        dispatch({type: AuthActionTypes.Login})
+        try {
+            const res = await AuthApi.register(data)
+            if(res.data){
+                //login was succeed
+                //save token on loacalStorage
+                const loginData:LoginType = {email: data.email, password: data.password}
+                AuthActions.loginRequest(loginData)(dispatch, getState)
+                dispatch({type: AuthActionTypes.LoginSuccess})
+            }
+        } catch (error) {
+            //loagin perosses faild
+            dispatch({type: AuthActionTypes.LoginFail})
+            alert(error.response.data.message)
+        }
+        
     },
 
     //send request to server
@@ -26,7 +46,7 @@ export const AuthActions = {
         } catch (error) {
             //loagin perosses faild
             dispatch({type: AuthActionTypes.LoginFail})
-            alert(error.message)
+            alert(error.response.data.message)
         }
         
     },

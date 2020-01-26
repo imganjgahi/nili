@@ -6,10 +6,10 @@ let db = require('../db/database')
 exports.userRegister = (req, res) => {
     var errors = {}
     if (!req.body.password) {
-        errors.password = "No password specified";
+        errors.message = "No password specified";
     }
     if (!req.body.email) {
-        errors.email = "No email specified";
+        errors.message = "No email specified";
     }
     if (errors.length) {
         res.status(400).json({ "error": errors.join(",") });
@@ -25,7 +25,7 @@ exports.userRegister = (req, res) => {
             return res.json({ msg: err.message })
         }
         if (user) {
-            errors.email = 'this email is already exist';
+            errors.message = 'this email is already exist';
             return res.status(400).json(errors)
         }
         bcrypt.hash(data.password, bcrypt.genSaltSync(10), (err, hash) => {
@@ -63,7 +63,7 @@ exports.userLogin = (req, res) => {
             return res.json({ msg: err.message })
         }
         if (!user) {
-            errors.email = 'user not found';
+            errors.message = 'user not found';
             return res.status(500).json(errors);
         }
         bcrypt.compare(password, user.password)
@@ -80,7 +80,7 @@ exports.userLogin = (req, res) => {
                             })
                         })
                 } else {
-                    errors.password = 'password was incorrect';
+                    errors.message = 'password was incorrect';
                     res.status(400).json(errors);
                 }
             }) 

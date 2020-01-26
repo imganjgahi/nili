@@ -5,64 +5,37 @@ import { AuthActions } from '../../actions/Auth/action';
 import { IAuthState } from '../../actions/Auth/model';
 import { IApplicationState } from "../../store/state";
 import { FormCreator, IFormProps } from "../../Utils/FormController"
+import Login from '../Auth/Login';
+import Register from '../Auth/Register';
 
 type IProps = typeof AuthActions & IAuthState & IFormProps
 const Navbar = (props: any) => {
-
     const onCancel = () => {
         props.toggleLoginModal(false)
     }
 
-    const onOk = () => {
-        const values = props.onFormSubmit()
-        if(!values.err){
-            props.loginRequest({email: values.data.email, password: values.data.password})
-        }
+    const onLoginOk = (data: any) => {
+        props.loginRequest({ email: data.email, password: data.password })
+    }
+    const onRegisterOk = (data: any) => {
+        props.registerRequest({ email: data.email, password: data.password, fullName: data.fullName })
     }
 
-    const loginFormRender = () => {
-        const { getFormItem } = props
-        return(
-            <form>
-                <label htmlFor="email">ایمیل</label>
-                {getFormItem({
-                    name: "email",
-                    rules:[{
-                        required: true,
-                        msg: "filed must fill"
-                    }, 
-                {
-                    emaliValidate: true,
-                    msg: "Email is not valid"
-                }]
-                    
-                },
-                <input id="email" type="email" placeholder="E-mail" />
-                )}
-                
-                <label htmlFor="password">رمز عبور</label>
-                {getFormItem({
-                    name: "password",
-                    rules:[{
-                        required: true,
-                        msg: "filed must fill"
-                    }]
-                    
-                },
-                <input id="password" type="password" placeholder="Password" />
-                )}
-                
-            </form>
-        )
-    }
     return (
         <div className="navbar">
-            <Modal 
-            visiblity={props.login.open} 
-            onOk={onOk}
-            onCancel={onCancel} 
-            title="LOGIN" >
-                {loginFormRender()}
+            <Modal
+                visiblity={props.login.open}
+                onCancel={onCancel}
+                title="LOGIN" >
+                <div className="authPanel">
+                    <div className="LoginPanel">
+                        <Login {...props} onOk={(data) => onLoginOk(data)} />
+                    </div>
+
+                    <div className="RegisterPanel">
+                        <Register {...props}  onOk={(data) => onRegisterOk(data)}/>
+                    </div>
+                </div>
             </Modal>
             <h1 className="logo">NILI</h1>
             <ul className="navMenu">
@@ -78,10 +51,10 @@ const Navbar = (props: any) => {
         </div>
     )
 
-    
+
 }
 
 export default connect(
     (state: IApplicationState) => state.auth,
     AuthActions,
-)(FormCreator(Navbar));
+)(Navbar);

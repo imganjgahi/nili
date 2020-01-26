@@ -2,6 +2,12 @@ import { Action } from "redux";
 import {AuthActionTypes} from './actionType'
 
 
+export type RegisterType = {
+    fullName: string;
+    email: string;
+    password: string;
+    confrimPassword: string;
+}
 export type LoginType = {
     email: string;
     password: string;
@@ -20,6 +26,20 @@ interface ILoginModal extends Action<string> {
     type: AuthActionTypes.LoginModal;
     open: boolean;
 }
+
+//Register
+interface IRegister extends Action<string> {
+    type: AuthActionTypes.Register;
+}
+interface IRegisterSuccess extends Action<string> {
+    type: AuthActionTypes.RegisterSuccess;
+}
+interface IRegisterFail extends Action<string> {
+    type: AuthActionTypes.RegisterFail;
+}
+
+
+
 interface ILogin extends Action<string> {
     type: AuthActionTypes.Login;
 }
@@ -36,6 +56,9 @@ interface ILogOut extends Action<string> {
 }
 
 export type ActionModel = ILoginModal
+    | IRegister
+    | IRegisterSuccess
+    | IRegisterFail
     | ILogin
     | ILoginSuccess
     | ILoginFail
