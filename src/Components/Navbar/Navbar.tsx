@@ -7,9 +7,9 @@ import { IApplicationState } from "../../store/state";
 import { IFormProps } from "../../Utils/FormController"
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-type IProps = typeof AuthActions & IAuthState & IFormProps 
+type IProps = typeof AuthActions & IAuthState & IFormProps & RouteComponentProps
 const Navbar = (props: IProps) => {
     const onCancel = () => {
         props.toggleLoginModal(false)
@@ -21,8 +21,6 @@ const Navbar = (props: IProps) => {
     const onRegisterOk = (data: any) => {
         props.registerRequest({ email: data.email, password: data.password, fullName: data.fullName })
     }
-
-    console.log("Propas: ", props.isAuth)
     return (
         <div className="navbar">
             <Modal
@@ -35,25 +33,34 @@ const Navbar = (props: IProps) => {
                     </div>
 
                     <div className="RegisterPanel">
-                        <Register {...props}  onOk={(data) => onRegisterOk(data)}/>
+                        <Register {...props} onOk={(data) => onRegisterOk(data)} />
                     </div>
                 </div>
             </Modal>
-            <h1 className="logo"><Link to ="/" >NILI</Link></h1>
+            <h1 className="logo"><Link to="/" >NILI</Link></h1>
             <ul className="navMenu">
                 {props.isAuth ? (
                     <li className="navMenuItem"><Link to="/Dashboard">داشبورد</Link></li>
-                ): (
-                    <li className="navMenuItem"><Link to="/">خانه</Link></li>
-                )}
+                ) : (
+                        <li className="navMenuItem"><Link to="/">خانه</Link></li>
+                    )}
                 <li className="navMenuItem"><Link to="/About">درباره نیلی</Link></li>
                 <li className="navMenuItem">خدمات نیلی</li>
                 <li className="navMenuItem">ارتباط با ما</li>
             </ul>
             <div className="navAuth">
-                <small className="navLogin" onClick={() => props.toggleLoginModal(true)}>
-                    Login
+                {props.isAuth ? (
+                    <small className="navLogin" onClick={() => {
+                        props.logOutRequest()
+                        props.history.push("/")
+                    }}>
+                        Logout
                 </small>
+                ) : (
+                        <small className="navLogin" onClick={() => props.toggleLoginModal(true)}>
+                            Login
+                </small>
+                    )}
             </div>
         </div>
     )
