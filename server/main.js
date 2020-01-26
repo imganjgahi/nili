@@ -6,7 +6,6 @@ const passport = require('passport');
 const server = express();
 const users = require('./routes/users');
 const tasks = require('./routes/tasks');
-
 const webpackConfig = require("../webpack/webpack.dev.js")
 const compiler = webpack(webpackConfig)
 

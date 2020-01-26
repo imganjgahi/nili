@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-let db = require('../db/database');
+let db = require('../db/mysqlDatabase');
 
 
 exports.userRegister = (req, res) => {
@@ -20,10 +20,10 @@ exports.userRegister = (req, res) => {
         email: req.body.email,
         password: req.body.password
     }
-    db.get(`SELECT * FROM users WHERE email = ?`, [req.body.email], (err, user) => {
-        if (err) {
-            return res.json({ msg: err.message })
-        }
+
+
+    db.execute(`SELECT * FROM users WHERE email = ?`, [req.body.email]).then(users => {
+        const user = users[0][0]
         if (user) {
             errors.message = 'this email is already exist';
             return res.status(400).json(errors)
@@ -33,21 +33,16 @@ exports.userRegister = (req, res) => {
                 return res.json({ msg: err.message })
             };
             data.password = hash;
-            var sql = 'INSERT INTO users (name, email, password) VALUES (?,?,?)'
-            var params = [data.name, data.email, data.password]
-            db.run(sql, params, function (err, result) {
-                if (err) {
-                    res.status(400).json({ "error": err.message })
-                    return;
-                }
-                res.json({
-                    "message": "success",
-                    "data": data,
-                    "id": this.lastID
-                })
-            });
+            db.execute('INSERT INTO users (name, email, password) VALUES (?,?,?)', [data.name, data.email, data.password]).then(() => {
+                return res.json({message: "user Added"})
+            }).catch(err => {
+                console.log(err.message)
+                return res.status(500).join({ message: "someting was wrong" })
+            })
         });
-
+    }).catch(err => {
+        console.log(err.message)
+        return res.status(500).join({ message: "someting was wrong" })
     });
 
 }
@@ -57,11 +52,8 @@ exports.userLogin = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-
-    db.get("SELECT * FROM users WHERE email = ?", [email], (err, user) => {
-        if (err) {
-            return res.json({ msg: err.message })
-        }
+    db.execute(`SELECT * FROM users WHERE email = ?`, [email]).then(users => {
+        const user = users[0][0]
         if (!user) {
             errors.message = 'user not found';
             return res.status(500).json(errors);
@@ -81,8 +73,14 @@ exports.userLogin = (req, res) => {
                         })
                 } else {
                     errors.message = 'password was incorrect';
-                    res.status(400).json(errors);
+                    return res.status(400).json(errors);
                 }
-            }) 
-    });
+            }).catch(err => {
+                console.log("Bcrypt: ", err.message)
+                return res.status(500).join({ message: "someting was wrong" })
+            })
+    }).catch(err => {
+        console.log(err.message)
+        return res.status(500).join({ message: "someting was wrong" })
+    })
 }
