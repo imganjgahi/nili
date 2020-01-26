@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const server = express();
 const users = require('./routes/users');
+const tasks = require('./routes/tasks');
 
 const webpackConfig = require("../webpack/webpack.dev.js")
 const compiler = webpack(webpackConfig)
@@ -27,11 +28,13 @@ server.use(staticPath)
 //passport middleware
 server.use(passport.initialize());
 
+
 //passport config
 require('./config/passport')(passport);
 
 //Routes
 server.use('/api/users', users);
+server.use('/api/tasks', tasks);
 
 server.get('*', (req,res) =>{
     res.sendFile(path.resolve(__dirname,'../public/index.html'));

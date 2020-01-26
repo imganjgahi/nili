@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-let db = require('../db/database')
+let db = require('../db/database');
 
 
 exports.userRegister = (req, res) => {

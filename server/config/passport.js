@@ -14,7 +14,6 @@ module.exports = passport => {
                 console.log(err.message)
                 return
             }
-            console.log(user)
             if(user) {
                 return done(null, user);
             }
