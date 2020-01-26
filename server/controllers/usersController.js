@@ -64,7 +64,7 @@ exports.userLogin = (req, res) => {
         }
         if (!user) {
             errors.email = 'user not found';
-            return res.status(404).json(errors);
+            return res.status(500).json(errors);
         }
         bcrypt.compare(password, user.password)
             .then(isMatch => {

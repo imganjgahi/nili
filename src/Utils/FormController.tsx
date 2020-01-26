@@ -15,17 +15,17 @@ type IState = {
 
 
 export type IFormProps = {
-    getFormItem?: (props: IFormItem, comp: Element | React.ComponentType | JSX.Element) => Element;
+    getFormItem: (props: IFormItem, comp: Element | React.ComponentType | JSX.Element) => Element;
     getFormValues?: () => object;
     resetForm?: () => void;
-    onFormSubmit?: () => {data: {[key: string]: string}, err: {[key: string]: string}}
+    onFormSubmit: () => {data: {[key: string]: string}, err: {[key: string]: string}}
 };
 
 
 
 
 
-export const FormController = <P extends IFormProps>(Component: React.ComponentType<P>) =>
+export const FormCreator = <P extends IFormProps>(Component: React.ComponentType<P>) =>
     class Form extends React.Component<P, IState> {
         constructor(props: P) {
             super(props);
