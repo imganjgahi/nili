@@ -25,12 +25,13 @@ $color: white;
 body {
     background-color: $bg-color;
     color: $color;
-    text-align: right;
+    // text-align: right;
     margin: 0;
-    direction: rtl;
+    // direction: rtl;
     font-family: Shabnam, tahoma, serif;
 }
 @import "./colors";
 @import "./Navbar.scss";
 @import "./modals.scss";
 @import "./Auth.scss";
+@import "./Form.scss";

@@ -28,25 +28,24 @@ const Navbar = (props: IProps) => {
                 onCancel={onCancel}
                 title="LOGIN" >
                 <div className="authPanel">
-                    <div className="LoginPanel">
-                        <Login {...props} onOk={(data) => onLoginOk(data)} />
-                    </div>
-
                     <div className="RegisterPanel">
                         <Register {...props} onOk={(data) => onRegisterOk(data)} />
+                    </div>
+                    <div className="LoginPanel">
+                        <Login {...props} onOk={(data) => onLoginOk(data)} />
                     </div>
                 </div>
             </Modal>
             <h1 className="logo"><Link to="/" >NILI</Link></h1>
             <ul className="navMenu">
                 {props.isAuth ? (
-                    <li className="navMenuItem"><Link to="/Dashboard">داشبورد</Link></li>
+                    <li className="navMenuItem"><Link to="/Dashboard">Dashboard</Link></li>
                 ) : (
-                        <li className="navMenuItem"><Link to="/">خانه</Link></li>
+                        <li className="navMenuItem"><Link to="/">Home</Link></li>
                     )}
-                <li className="navMenuItem"><Link to="/About">درباره نیلی</Link></li>
-                <li className="navMenuItem">خدمات نیلی</li>
-                <li className="navMenuItem">ارتباط با ما</li>
+                <li className="navMenuItem"><Link to="/About">About Nili</Link></li>
+                <li className="navMenuItem">Our Feathure</li>
+                <li className="navMenuItem">Contact us</li>
             </ul>
             <div className="navAuth">
                 {props.isAuth ? (

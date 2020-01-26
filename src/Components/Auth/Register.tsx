@@ -18,7 +18,7 @@ const Register: React.FC<IProps> = (props: IProps) => {
     const { getFormItem } = props
     return(
         <form onSubmit={submitHandler}>
-            <label htmlFor="fullName">نام شما</label>
+            <label htmlFor="fullName">Full Name</label>
             {getFormItem({
                 name: "fullName",
                 rules:[{
@@ -30,7 +30,7 @@ const Register: React.FC<IProps> = (props: IProps) => {
             <input id="fullName" type="text" placeholder="Your FullName" />
             )}
 
-            <label htmlFor="email">ایمیل</label>
+            <label htmlFor="email">E-Mail</label>
             {getFormItem({
                 name: "email",
                 rules:[{
@@ -46,7 +46,7 @@ const Register: React.FC<IProps> = (props: IProps) => {
             <input id="email" type="email" placeholder="E-mail" />
             )}
             
-            <label htmlFor="password">رمز عبور</label>
+            <label htmlFor="password">Password</label>
             {getFormItem({
                 name: "password",
                 rules:[{
@@ -57,7 +57,7 @@ const Register: React.FC<IProps> = (props: IProps) => {
             },
             <input id="password" type="password" placeholder="Password" />
             )}
-            <label htmlFor="confirmPassword"> تکرار رمز عبور</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             {getFormItem({
                 name: "confirmPassword",
                 rules:[{

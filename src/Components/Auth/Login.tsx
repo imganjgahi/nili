@@ -18,7 +18,7 @@ const Login: React.FC<IProps> = (props: IProps) => {
     const { getFormItem } = props
     return(
         <form onSubmit={submitHandler}>
-            <label htmlFor="email">ایمیل</label>
+            <label htmlFor="email">E-Mail</label>
             {getFormItem({
                 name: "email",
                 rules:[{
@@ -34,7 +34,7 @@ const Login: React.FC<IProps> = (props: IProps) => {
             <input id="email" type="email" placeholder="E-mail" />
             )}
             
-            <label htmlFor="password">رمز عبور</label>
+            <label htmlFor="password">Password</label>
             {getFormItem({
                 name: "password",
                 rules:[{

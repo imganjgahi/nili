@@ -67,10 +67,10 @@ class Modal extends React.Component<IProps, IState> {
                                     this.props.onOk()
                                 }
                             }}>
-                                تایید
+                                OK
                         </Button>
                         )}
-                        <Button className="cancel" onClick={() => this.closeHandler()}> بستن </Button>
+                        <Button className="cancel" onClick={() => this.closeHandler()}> Close </Button>
                     </div>
                 </div>
             </div>
