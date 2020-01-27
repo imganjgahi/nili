@@ -7,7 +7,8 @@ const server = express();
 const users = require('./routes/users');
 const tasks = require('./routes/tasks');
 const handbooks = require('./routes/handbooks');
-const webpackConfig = require("../webpack/webpack.dev.js")
+const webpackConfig = require("../webpack/webpack.dev.js");
+const sequelize = require("./db/mysqlDatabase");
 const compiler = webpack(webpackConfig)
 
 const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, compiler.devServer)
@@ -42,6 +43,10 @@ server.get('*', (req,res) =>{
 });
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-    console.log(`sarver is runnig on port ${PORT}`)
-})
+
+sequelize.sync({ force: true }).then((result) => {
+    // console.log("result: ", result)
+    server.listen(PORT, () => {
+        console.log(`sarver is runnig on port ${PORT}`)
+    })
+}).catch(error => console.log(error));
