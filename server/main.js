@@ -6,6 +6,7 @@ const passport = require('passport');
 const server = express();
 const users = require('./routes/users');
 const tasks = require('./routes/tasks');
+const handbooks = require('./routes/handbooks');
 const webpackConfig = require("../webpack/webpack.dev.js")
 const compiler = webpack(webpackConfig)
 
@@ -34,6 +35,7 @@ require('./config/passport')(passport);
 //Routes
 server.use('/api/users', users);
 server.use('/api/tasks', tasks);
+server.use('/api/handbooks', handbooks);
 
 server.get('*', (req,res) =>{
     res.sendFile(path.resolve(__dirname,'../public/index.html'));

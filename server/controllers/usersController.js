@@ -22,7 +22,7 @@ exports.userRegister = (req, res) => {
     }
 
 
-    db.execute(`SELECT * FROM users WHERE email = ?`, [req.body.email]).then(users => {
+    db.execute(`SELEC * FROM users WHERE email = ?`, [req.body.email]).then(users => {
         const user = users[0][0]
         if (user) {
             errors.message = 'this email is already exist';
