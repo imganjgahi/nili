@@ -32,9 +32,29 @@ exports.createHandbooks = async (req, res, next) => {
         next(err)
     })
 };
-exports.updateHandbooks = (req, res) => {
-    return res.json({ msg: "updateHandbooks: " + req.params.id, data: req.body })
+exports.updateHandbooks = (req, res, next) => {
+    const data = req.body
+
+    db.execute("UPDATE handbooks SET title = ?, status = ?, avatar= ?, userId = ?, updated_at = ? WHERE id = ? AND userId = ?", [
+        data.title,
+        data.status,
+        data.avatar,
+        req.user.id,
+        new Date(),
+        req.params.id,
+        req.user.id
+    ]).then(() => {
+        return res.json({message: "handbooks Updated"})
+    }).catch(err => {
+        console.log(err.message)
+        next(err)
+    })
 };
-exports.deleteHandbooks = (req, res) => {
-    return res.json({ msg: "deleteHandbooks" + req.params.id })
+exports.deleteHandbooks = (req, res, next) => {
+    db.execute("DELETE FROM handbooks WHERE userId = ? AND id = ?", [req.user.id, req.params.id]).then((data) => {
+        return res.json({data: data[0]})
+    }).catch(err => {
+        console.log(err.message)
+        next(err)
+    })
 };

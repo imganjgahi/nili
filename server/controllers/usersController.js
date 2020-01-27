@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 let db = require('../db/mysqlDatabase');
 
 
-exports.userRegister = (req, res) => {
+exports.userRegister = (req, res, next) => {
     var errors = {}
     if (!req.body.password) {
         errors.message = "No password specified";
@@ -22,7 +22,7 @@ exports.userRegister = (req, res) => {
     }
 
 
-    db.execute(`SELEC * FROM users WHERE email = ?`, [req.body.email]).then(users => {
+    db.execute(`SELECT * FROM users WHERE email = ?`, [req.body.email]).then(users => {
         const user = users[0][0]
         if (user) {
             errors.message = 'this email is already exist';
@@ -37,17 +37,17 @@ exports.userRegister = (req, res) => {
                 return res.json({message: "user Added"})
             }).catch(err => {
                 console.log(err.message)
-                return res.status(500).join({ message: "someting was wrong" })
+                next(err)
             })
         });
     }).catch(err => {
         console.log(err.message)
-        return res.status(500).join({ message: "someting was wrong" })
+        next(err)
     });
 
 }
 
-exports.userLogin = (req, res) => {
+exports.userLogin = (req, res, next) => {
     const errors = {};
     const email = req.body.email;
     const password = req.body.password;
@@ -64,7 +64,7 @@ exports.userLogin = (req, res) => {
 
                     const payLoad = { id: user.id, name: user.name, } //jwt payload
 
-                    jwt.sign(payLoad, "THESECRETKEYS", { expiresIn: 3600 },
+                    jwt.sign(payLoad, "THESECRETKEYS", { expiresIn: 36000 },
                         (err, token) => {
                             res.json({
                                 success: true,
@@ -77,10 +77,10 @@ exports.userLogin = (req, res) => {
                 }
             }).catch(err => {
                 console.log("Bcrypt: ", err.message)
-                return res.status(500).join({ message: "someting was wrong" })
+                next(err)
             })
     }).catch(err => {
         console.log(err.message)
-        return res.status(500).join({ message: "someting was wrong" })
+        next(err)
     })
 }
