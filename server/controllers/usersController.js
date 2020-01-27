@@ -20,7 +20,7 @@ exports.userRegister = (req, res, next) => {
         password: req.body.password
     }
 
-    UserModel.findOne({email: data.email}).then((user) => {
+    UserModel.findOne({where: {email: data.email}}).then((user) => {
         if (user) {
             errors.message = 'this email is already exist';
             return res.status(400).json(errors)
@@ -56,7 +56,7 @@ exports.userLogin = (req, res, next) => {
     const password = req.body.password;
 
 
-    UserModel.findOne({email}).then((user) => {
+    UserModel.findOne({where: {email}}).then((user) => {
         if (!user) {
             errors.message = 'user not found';
             return res.status(500).json(errors);
