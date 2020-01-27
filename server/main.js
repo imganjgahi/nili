@@ -44,7 +44,7 @@ server.get('*', (req,res) =>{
 
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ force: true }).then((result) => {
+sequelize.sync().then((result) => {
     // console.log("result: ", result)
     server.listen(PORT, () => {
         console.log(`sarver is runnig on port ${PORT}`)

@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-let db = require('../db/mysqlDatabase');
-
+const UserModel = require("../models/user")
 
 exports.userRegister = (req, res, next) => {
     var errors = {}
@@ -15,15 +14,13 @@ exports.userRegister = (req, res, next) => {
         res.status(400).json({ "error": errors.join(",") });
         return;
     }
-    var data = {
+    const data = {
         name: req.body.fullName,
         email: req.body.email,
         password: req.body.password
     }
 
-
-    db.execute(`SELECT * FROM users WHERE email = ?`, [req.body.email]).then(users => {
-        const user = users[0][0]
+    UserModel.findOne({email: data.email}).then((user) => {
         if (user) {
             errors.message = 'this email is already exist';
             return res.status(400).json(errors)
@@ -33,13 +30,19 @@ exports.userRegister = (req, res, next) => {
                 return res.json({ msg: err.message })
             };
             data.password = hash;
-            db.execute('INSERT INTO users (name, email, password) VALUES (?,?,?)', [data.name, data.email, data.password]).then(() => {
-                return res.json({message: "user Added"})
-            }).catch(err => {
-                console.log(err.message)
-                next(err)
-            })
+           UserModel.create({
+               name: data.name,
+               email: data.email,
+               password: data.password,
+               avatar: data.avatar
+           }).then((result) => {
+            return res.json({message: "user Added"})
+        }).catch(err => {
+            console.log(err.message)
+            next(err)
+        })
         });
+
     }).catch(err => {
         console.log(err.message)
         next(err)
@@ -52,8 +55,8 @@ exports.userLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    db.execute(`SELECT * FROM users WHERE email = ?`, [email]).then(users => {
-        const user = users[0][0]
+
+    UserModel.findOne({email}).then((user) => {
         if (!user) {
             errors.message = 'user not found';
             return res.status(500).json(errors);
@@ -79,8 +82,9 @@ exports.userLogin = (req, res, next) => {
                 console.log("Bcrypt: ", err.message)
                 next(err)
             })
+
     }).catch(err => {
         console.log(err.message)
         next(err)
-    })
+    });
 }
