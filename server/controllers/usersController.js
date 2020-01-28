@@ -1,7 +1,31 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserModel = require("../models/user")
+const NoteBookModel = require("../models/noteBook")
+const TaskModel = require("../models/task")
 
+
+
+exports.userPanel = (req, res, next) => {
+    UserModel.findOne({
+        where: { id: req.user.id },
+        attributes: ['name'],
+        include: [
+            { model: NoteBookModel, as: "notebooks", 
+            order: [
+                ["id", "DESC"]
+            ], limit: 5 },
+            { model: TaskModel, as: "tasks", 
+            order: [
+                ["id", "DESC"]
+            ], limit: 5 },
+        ]}).then(data => {
+        return res.json(data)
+    }).catch(err => {
+        console.log(err);
+        next(err)
+    })
+}
 exports.userRegister = (req, res, next) => {
     var errors = {}
     if (!req.body.password) {
@@ -20,7 +44,7 @@ exports.userRegister = (req, res, next) => {
         password: req.body.password
     }
 
-    UserModel.findOne({where: {email: data.email}}).then((user) => {
+    UserModel.findOne({ where: { email: data.email } }).then((user) => {
         if (user) {
             errors.message = 'this email is already exist';
             return res.status(400).json(errors)
@@ -30,17 +54,17 @@ exports.userRegister = (req, res, next) => {
                 return res.json({ msg: err.message })
             };
             data.password = hash;
-           UserModel.create({
-               name: data.name,
-               email: data.email,
-               password: data.password,
-               avatar: data.avatar
-           }).then((result) => {
-            return res.json({message: "user Added"})
-        }).catch(err => {
-            console.log(err.message)
-            next(err)
-        })
+            UserModel.create({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                avatar: data.avatar
+            }).then((result) => {
+                return res.json({ message: "user Added" })
+            }).catch(err => {
+                console.log(err.message)
+                next(err)
+            })
         });
 
     }).catch(err => {
@@ -56,7 +80,7 @@ exports.userLogin = (req, res, next) => {
     const password = req.body.password;
 
 
-    UserModel.findOne({where: {email}}).then((user) => {
+    UserModel.findOne({ where: { email } }).then((user) => {
         if (!user) {
             errors.message = 'user not found';
             return res.status(500).json(errors);

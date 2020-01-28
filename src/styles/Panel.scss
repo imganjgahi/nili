@@ -1,0 +1,35 @@
+
+.container {
+	padding: 0 15px;
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+.notebookList {
+	width: 300px;
+	border: 1px solid white;
+	background-color: white;
+	color: #444;
+	font-size: 12px;
+	line-height: 30px;
+    margin: 20px 0;
+    h3 {
+        text-align: center;
+        background-color: yellowgreen;
+        margin: 0;
+        height: 40px;
+        padding-top: 10px;
+        font-size: 12px;
+    }
+}
+.notebookItem {
+	padding: 5px;
+	border-bottom: 1px solid;
+	cursor: pointer;
+	transition: all 200ms;
+}
+.notebookItem:hover {
+	background-color: #12695e;
+	color: white;
+}

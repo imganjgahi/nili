@@ -8,6 +8,7 @@ const UserController = require('../controllers/usersController');
 
 
 //register user
+router.get('/panel', passport.authenticate('jwt', {session: false}), UserController.userPanel);
 router.post('/register', UserController.userRegister);
 
 router.post('/login', UserController.userLogin);

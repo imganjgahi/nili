@@ -8,7 +8,7 @@ import { IAuthState } from '../../actions/Auth/model';
 import { IFormProps } from "../../Utils/FormController";
 import { connect } from 'react-redux';
 import { IApplicationState } from '../../store/state';
-import DashboardPage from '../Dashboard/DashboardPage';
+import PanelPage from '../Panel/PanelPage';
 
 
 
@@ -22,7 +22,7 @@ const LayoutManager: React.FC<IProps> = (props: IProps) => {
             <Switch>
                 <Route path="/About" component={AboutPage} />
                 {props.isAuth ? (
-                    <Route path="/" component={DashboardPage} />
+                    <Route path="/" component={PanelPage} />
                 ) : (
                         <Route path="/" component={Home} />
                     )}
