@@ -1,61 +1,73 @@
-let db = require('../db/mysqlDatabase');
+const TaskModel = require("../models/task")
 
 exports.getAllTasks = (req, res, next) => {
-    db.execute("SELECT * FROM tasks WHERE userId = ? AND status = ?", [req.user.id, 1]).then(data => {
-        return res.json({ data: data[0] })
+    TaskModel.findAll({ where: { userId: req.user.id, status: 1 } }).then(data => {
+        return res.json({ data })
     }).catch(err => {
         console.log(err.message)
         next(err)
-    })
+    });
 };
 exports.getTasksById = (req, res, next) => {
-    db.execute("SELECT * FROM tasks WHERE userId = ? AND status = ? AND id = ?", [req.user.id, 1, req.params.id])
-    .then(data => {
-        let task = null
-        if (data[0][0]) {
-            task = data[0][0]
-        }
-        return res.json({ message: "success", data: task })
+    TaskModel.findOne({ where: { userId: req.user.id, status: 1, id: req.params.id } }).then(task => {
+        return res.json({ task })
     }).catch(err => {
         console.log(err.message)
         next(err)
-    })
+    });
 };
 exports.createTasks = (req, res, next) => {
     const data = req.body;
-    db.execute('INSERT INTO tasks (title, description, status, handbookId, userId, created_at) VALUES (?,?,?,?,?,?)', 
-    [data.title, data.description, data.status, data.handbookId, req.user.id, new Date()])
-    .then(() => {
-        return res.json({message: "createTasks Success"})
+    TaskModel.create({
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        status: 1,
+        avatar: "TaskModel.jpg",
+        userId: req.user.id,
+        noteBookId: data.noteBookId,
+    }).then(() => {
+        return res.json({ message: "TaskModel Added" })
     }).catch(err => {
         console.log(err.message)
         next(err)
-    })
+    });
 };
 exports.updateTasks = (req, res, next) => {
+
     const data = req.body
 
-    db.execute("UPDATE tasks SET title = ?, description= ?, status = ?, handbookId = ?, userId = ?, updated_at = ? WHERE id = ? AND userId = ?", [
-        data.title,
-        data.description,
-        data.status,
-        data.handbookId,
-        req.user.id,
-        new Date(),
-        req.params.id,
-        req.user.id
-    ]).then(() => {
-        return res.json({message: "Task Updated"})
+    TaskModel.findOne({ where: { userId: req.user.id, id: req.params.id } }).then(task => {
+
+        if (!task) {
+            return res.status(400).json({ message: "Task not found" })
+        }
+        task.title = data.title;
+        task.description= data.description,
+        task.category= data.category,
+        task.status = data.status;
+        task.avatar = data.avatar;
+        task.userId= req.user.id,
+        task.noteBookId= data.noteBookId,
+        task.save();
+        return res.status(200).json({ message: "Task was updated" })
     }).catch(err => {
         console.log(err.message)
         next(err)
-    })
+    });
 };
 exports.deleteTasks = (req, res, next) => {
-   db.execute("DELETE FROM tasks WHERE userId = ? AND id = ?", [req.user.id, req.params.id]).then(() => {
-    return res.json({message: "Task Deleted"})
-}).catch(err => {
-    console.log(err.message)
-    next(err)
-})
+
+    TaskModel.findOne({ where: { userId: req.user.id, id: req.params.id } }).then(task => {
+
+        if (!task) {
+            return res.status(400).json({ message: "Task not found" })
+        }
+        task.destroy().then(() => {
+            return res.status(200).json({ message: "Task was Deleted" })
+        })
+    }).catch(err => {
+        console.log(err.message)
+        next(err)
+    });
 };

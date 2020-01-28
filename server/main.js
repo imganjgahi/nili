@@ -6,7 +6,7 @@ const passport = require('passport');
 const server = express();
 const users = require('./routes/users');
 const tasks = require('./routes/tasks');
-const handbooks = require('./routes/handbooks');
+const noteBooks = require('./routes/noteBooks');
 const webpackConfig = require("../webpack/webpack.dev.js");
 const sequelize = require("./db/mysqlDatabase");
 const compiler = webpack(webpackConfig)
@@ -36,7 +36,7 @@ require('./config/passport')(passport);
 //Routes
 server.use('/api/users', users);
 server.use('/api/tasks', tasks);
-server.use('/api/handbooks', handbooks);
+server.use('/api/notebooks', noteBooks);
 
 server.get('*', (req,res) =>{
     res.sendFile(path.resolve(__dirname,'../public/index.html'));
@@ -44,6 +44,7 @@ server.get('*', (req,res) =>{
 
 const PORT = process.env.PORT || 5000;
 
+// sequelize.sync({force: true}).then((result) => {
 sequelize.sync().then((result) => {
     // console.log("result: ", result)
     server.listen(PORT, () => {
