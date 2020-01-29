@@ -7,6 +7,8 @@ import { IPanelState } from '../../actions/Panel/model';
 import addNote from "../../Assets/Icons/addNote.svg";
 //@ts-ignore
 import addPlus from "../../Assets/Icons/addPlus.svg";
+//@ts-ignore
+import trash from "../../Assets/Icons/trash.svg";
 import CreateNoteBook from './Create/CreateNoteBook';
 import { IFormProps } from "../../Utils/FormController";
 type IProps = IPanelState & typeof PanelActions & IFormProps
@@ -21,7 +23,9 @@ const PanelPage: React.FC<IProps> = (props: IProps) => {
             <div className="notebookList">
                 <div className="palletHeader">
                     <h3>Notebook List</h3> 
-                <img className="threeDots" src={addPlus} onClick={() => props.toggleCreateModals("CreateNoteBook")}/>
+                <img className="iconMenu" 
+                src={addPlus} 
+                onClick={() => props.toggleCreateModals("CreateNoteBook")}/>
                 </div>
                 {data ? (
                     <React.Fragment>
@@ -29,6 +33,13 @@ const PanelPage: React.FC<IProps> = (props: IProps) => {
                             return (
                                 <div key={notebook.id} className="notebookItem">
                                     <p className="notebookTitle"> {notebook.title} </p>
+                                    <div>
+                                        <img 
+                                        onClick={() => {props.deleteNotebook(notebook.id)}}
+                                        className="iconMenu"
+                                        src={trash} 
+                                        alt="deleteIcon"/>
+                                    </div>
                                 </div>
                             )
                         })) : (
@@ -49,7 +60,7 @@ const PanelPage: React.FC<IProps> = (props: IProps) => {
             </div>
 
             <div className="taskList">
-                <div className="palletHeader"><h3>Task List</h3> <img className="threeDots" src={addNote} /></div>
+                <div className="palletHeader"><h3>Task List</h3> <img className="iconMenu" src={addNote} /></div>
             
             {data ? (
                     <React.Fragment>
@@ -77,7 +88,7 @@ const PanelPage: React.FC<IProps> = (props: IProps) => {
             </div>
 
             <div className="customNoteList">
-                <div className="palletHeader"><h3>Custom Note</h3> <img className="threeDots" src={addPlus} /></div>
+                <div className="palletHeader"><h3>Custom Note</h3> <img className="iconMenu" src={addPlus} /></div>
             
             {data ? (
                     <React.Fragment>

@@ -1,2 +1,2 @@
 export {getPanelData} from "./action";
-export {toggleCreateModals, CreateNotebook} from "./Create/notebookAction";
+export {toggleCreateModals, CreateNotebook, deleteNotebook} from "./CRUD/notebookAction";

@@ -19,7 +19,7 @@ const CreateNoteBook: React.FC<IProps> = (props: IProps) => {
     }
     const {getFormItem} = props
     return (
-        <Modal visiblity={props.createItem.open === "CreateNoteBook"} 
+        <Modal visiblity={props.itemCRUD.open === "CreateNoteBook"} 
         title="Create Notebook"
         onOk={onOk}
         onCancel= {onCancel}>

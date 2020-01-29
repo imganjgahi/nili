@@ -7,7 +7,7 @@ const unloadedState: IPanelState = {
         loading: false,
         data: null
     },
-    createItem: {
+    itemCRUD: {
         loading: "",
         open: ""
     }
@@ -51,8 +51,8 @@ export const PanelReducer: Reducer<IPanelState> = (
         case PanelActionTypes.ToggleCreateModals: {
             return {
                 ...state,
-                createItem: {
-                    ...state.createItem,
+                itemCRUD: {
+                    ...state.itemCRUD,
                     loading: "",
                     open: action.open
                 },
@@ -61,8 +61,8 @@ export const PanelReducer: Reducer<IPanelState> = (
         case PanelActionTypes.CreateNoteBook: {
             return {
                 ...state,
-                createItem: {
-                    ...state.createItem,
+                itemCRUD: {
+                    ...state.itemCRUD,
                     loading: "CreateNoteBook"
                 },
             } as IPanelState;
@@ -70,8 +70,8 @@ export const PanelReducer: Reducer<IPanelState> = (
         case PanelActionTypes.CreateNoteBookSuccess: {
             return {
                 ...state,
-                createItem: {
-                    ...state.createItem,
+                itemCRUD: {
+                    ...state.itemCRUD,
                     loading: "",
                 },
             } as IPanelState;
@@ -79,8 +79,35 @@ export const PanelReducer: Reducer<IPanelState> = (
         case PanelActionTypes.CreateNoteBookFail: {
             return {
                 ...state,
-                createItem: {
-                    ...state.createItem,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteNoteBook: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "DeleteNoteBook",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteNoteBookSuccess: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteNoteBookFail: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
                     loading: "",
                 },
             } as IPanelState;

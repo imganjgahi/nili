@@ -12,10 +12,14 @@ exports.userPanel = (req, res, next) => {
         attributes: ['name'],
         include: [
             { model: NoteBookModel, as: "notebooks", 
+            attributes: ['id', 'title'],
+            where: {status: 1},
             order: [
                 ["id", "DESC"]
             ], limit: 5 },
             { model: TaskModel, as: "tasks", 
+            attributes: ['id', 'title'],
+            where: {status: 1},
             order: [
                 ["id", "DESC"]
             ], limit: 5 },

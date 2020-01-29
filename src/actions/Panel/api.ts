@@ -8,5 +8,8 @@ export const PanelApi = {
     },
     createNoteBook : async (data: any) => {
         return axios.post(PanelUrl+ "/notebooks", data)
+    },
+    deleteNoteBook : async (notebookId: number) => {
+        return axios.delete(PanelUrl+ "/notebooks/"+notebookId)
     }
 }
