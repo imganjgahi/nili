@@ -8,6 +8,10 @@ import { IFormProps } from "../../Utils/FormController"
 import Login from '../Auth/Login';
 import Register from '../Auth/Register';
 import { Link, RouteComponentProps } from 'react-router-dom';
+//@ts-ignore
+import login from "../../Assets/Icons/login.svg";
+//@ts-ignore
+import logout from "../../Assets/Icons/logout.svg";
 
 type IProps = typeof AuthActions & IAuthState & IFormProps & RouteComponentProps
 const Navbar = (props: IProps) => {
@@ -49,16 +53,12 @@ const Navbar = (props: IProps) => {
             </ul>
             <div className="navAuth">
                 {props.isAuth ? (
-                    <small className="navLogin" onClick={() => {
+                    <img src={logout} className="navLogin" onClick={() => {
                         props.logOutRequest()
                         props.history.push("/")
-                    }}>
-                        Logout
-                </small>
+                    }} />
                 ) : (
-                        <small className="navLogin" onClick={() => props.toggleLoginModal(true)}>
-                            Login
-                </small>
+                        <img src={login} className="navLogin" onClick={() => props.toggleLoginModal(true)} />
                     )}
             </div>
         </div>

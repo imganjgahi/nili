@@ -6,7 +6,9 @@
 	gap: 10px;
 	flex-wrap: wrap;
 }
-.notebookList {
+.notebookList,
+.taskList,
+.customNoteList {
 	width: 300px;
 	border: 1px solid white;
 	background-color: white;
@@ -14,22 +16,48 @@
 	font-size: 12px;
 	line-height: 30px;
     margin: 20px 0;
-    h3 {
-        text-align: center;
-        background-color: yellowgreen;
-        margin: 0;
-        height: 40px;
-        padding-top: 10px;
-        font-size: 12px;
-    }
 }
-.notebookItem {
+@mixin panelListItem {
 	padding: 5px;
-	border-bottom: 1px solid;
 	cursor: pointer;
+	margin: 5px;
+	background-color: #dfdfdf;
 	transition: all 200ms;
 }
-.notebookItem:hover {
-	background-color: #12695e;
+.notebookItem {
+	@include panelListItem()
+}
+.taskItem {
+	@include panelListItem()
+}
+.customNoteItem {
+	@include panelListItem()
+}
+
+.notebookItem:hover,
+.taskItem:hover,
+.customNoteItem:hover {
+	background-color: #534340;
 	color: white;
+	padding: 5px 15px;
+	border-left: 8px solid cornflowerblue;
+	border-right: 8px solid cornflowerblue;
+}
+
+.seeMore {
+	text-align: right;
+	padding: 0 15px;
+	color: $header;
+	text-decoration: none;
+	display: block;
+	color: $link;
+}
+.seeMore:hover {
+	color: $linkHover;
+}
+
+.empty {
+	color: #a98982;
+	text-align: center;
+	padding: 30px 0;
 }

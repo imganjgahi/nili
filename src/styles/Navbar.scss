@@ -3,7 +3,7 @@
 	justify-content: space-between;
 	gap: 25px;
 	padding: 0 20px;
-	background-color: #444;
+	background-color: $header;
     align-items: center;
     .logo {
         margin: 0;
@@ -28,5 +28,6 @@
 
     .navLogin {
         cursor: pointer;
+        height: 25px;
     }
 }
