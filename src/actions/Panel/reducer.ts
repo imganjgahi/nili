@@ -58,6 +58,8 @@ export const PanelReducer: Reducer<IPanelState> = (
                 },
             } as IPanelState;
         }
+
+        //####################################### NOTE BOOK CRUD REDUCER
         case PanelActionTypes.CreateNoteBook: {
             return {
                 ...state,
@@ -104,6 +106,62 @@ export const PanelReducer: Reducer<IPanelState> = (
             } as IPanelState;
         }
         case PanelActionTypes.DeleteNoteBookFail: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+
+        //####################################### TASK CRUD REDUCER
+        case PanelActionTypes.CreateTask: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "CreateTask"
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.CreateTaskSuccess: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.CreateTaskFail: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteTask: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "DeleteTask",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteTaskSuccess: {
+            return {
+                ...state,
+                itemCRUD: {
+                    ...state.itemCRUD,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.DeleteTaskFail: {
             return {
                 ...state,
                 itemCRUD: {

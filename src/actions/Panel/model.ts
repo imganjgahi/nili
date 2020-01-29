@@ -27,6 +27,9 @@ interface IToggleCreateModals extends Action<string> {
     type: PanelActionTypes.ToggleCreateModals
     open: string
 }
+
+
+// ########################################### NOTE BOOK CRUD MODEL
 interface ICreateNoteBook extends Action<string> {
     type: PanelActionTypes.CreateNoteBook
 }
@@ -47,6 +50,27 @@ interface IDeleteNoteBookFail extends Action<string> {
     type: PanelActionTypes.DeleteNoteBookFail
 }
 
+// ########################################### TASK CRUD MODEL
+interface ICreateTask extends Action<string> {
+    type: PanelActionTypes.CreateTask
+}
+interface ICreateTaskSuccess extends Action<string> {
+    type: PanelActionTypes.CreateTaskSuccess
+}
+interface ICreateTaskFail extends Action<string> {
+    type: PanelActionTypes.CreateTaskFail
+}
+
+interface IDeleteTask extends Action<string> {
+    type: PanelActionTypes.DeleteTask
+}
+interface IDeleteTaskSuccess extends Action<string> {
+    type: PanelActionTypes.DeleteTaskSuccess
+}
+interface IDeleteTaskFail extends Action<string> {
+    type: PanelActionTypes.DeleteTaskFail
+}
+
 export type ActionModel = IGetPanelData
     | IGetPanelDataSuccess
     | IGetPanelDataFail
@@ -57,3 +81,9 @@ export type ActionModel = IGetPanelData
     | IDeleteNoteBook
     | IDeleteNoteBookSuccess
     | IDeleteNoteBookFail
+    | ICreateTask
+    | ICreateTaskSuccess
+    | ICreateTaskFail
+    | IDeleteTask
+    | IDeleteTaskSuccess
+    | IDeleteTaskFail

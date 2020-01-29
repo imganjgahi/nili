@@ -142,7 +142,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
                 value: newValue
             }
 
-            const El = React.cloneElement(comp, initialElement, null);
+            const El = React.cloneElement(comp,  initialElement, comp.props.children);
             return <FromItemWrapper
                 label={itemProps.label}
                 id={comp.props.id ? comp.props.id : itemProps.name}
@@ -168,6 +168,9 @@ const FromItemWrapper = (props: any) => {
             props.initialValues(props.name, props.rules)
         
     }, [])
+    if(props.children){
+        console.log("FromItemWrapper", props.children)
+    }
     return (
         <div className="itemWrapper">
             {props.itemElement}
