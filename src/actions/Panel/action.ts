@@ -3,10 +3,10 @@ import { PanelActionTypes } from "./actionType";
 import { ActionModel } from "./model";
 import { PanelApi } from "./api";
 
-export const PanelActions = {
+// export const PanelActions = {
 
     //Get Data
-    getPanelData: (): AppAction<ActionModel> => async (dispatch, getState) => {
+    export const getPanelData= (): AppAction<ActionModel> => async (dispatch, getState) => {
         dispatch({type: PanelActionTypes.GetPanelData})
         try {
             const res = await PanelApi.getPanelData()
@@ -20,4 +20,4 @@ export const PanelActions = {
         }
         
     }
-};
+// };

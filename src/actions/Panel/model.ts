@@ -6,6 +6,10 @@ export interface IPanelState {
         loading: boolean;
         data: any;
     }
+    createItem: {
+        loading: string;
+        open: string;
+    }
 }
 
 interface IGetPanelData extends Action<string> {
@@ -19,6 +23,24 @@ interface IGetPanelDataFail extends Action<string> {
     type: PanelActionTypes.GetPanelDataFail
 }
 
+interface IToggleCreateModals extends Action<string> {
+    type: PanelActionTypes.ToggleCreateModals
+    open: string
+}
+interface ICreateNoteBook extends Action<string> {
+    type: PanelActionTypes.CreateNoteBook
+}
+interface ICreateNoteBookSuccess extends Action<string> {
+    type: PanelActionTypes.CreateNoteBookSuccess
+}
+interface ICreateNoteBookFail extends Action<string> {
+    type: PanelActionTypes.CreateNoteBookFail
+}
+
 export type ActionModel = IGetPanelData
     | IGetPanelDataSuccess
-    | IGetPanelDataFail;
+    | IGetPanelDataFail
+    | IToggleCreateModals
+    | ICreateNoteBook
+    | ICreateNoteBookSuccess
+    | ICreateNoteBookFail

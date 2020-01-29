@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormCreator, IFormProps } from "../../Utils/FormController"
+import { FormCreator, IFormProps } from "../../Utils/FormController";
 
 type IProps = IFormProps & {
     onOk: (data: any ) => void;

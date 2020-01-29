@@ -6,6 +6,10 @@ const unloadedState: IPanelState = {
     panelData: {
         loading: false,
         data: null
+    },
+    createItem: {
+        loading: "",
+        open: ""
     }
 };
 
@@ -41,6 +45,43 @@ export const PanelReducer: Reducer<IPanelState> = (
                 panelData: {
                     ...state.panelData,
                     loading: false
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.ToggleCreateModals: {
+            return {
+                ...state,
+                createItem: {
+                    ...state.createItem,
+                    loading: "",
+                    open: action.open
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.CreateNoteBook: {
+            return {
+                ...state,
+                createItem: {
+                    ...state.createItem,
+                    loading: "CreateNoteBook"
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.CreateNoteBookSuccess: {
+            return {
+                ...state,
+                createItem: {
+                    ...state.createItem,
+                    loading: "",
+                },
+            } as IPanelState;
+        }
+        case PanelActionTypes.CreateNoteBookFail: {
+            return {
+                ...state,
+                createItem: {
+                    ...state.createItem,
+                    loading: "",
                 },
             } as IPanelState;
         }

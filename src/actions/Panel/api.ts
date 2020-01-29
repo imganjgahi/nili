@@ -5,5 +5,8 @@ const PanelUrl = urlGeneral + urlVersion
 export const PanelApi = {
     getPanelData : async () => {
         return axios.get(PanelUrl+ "/users/panel")
+    },
+    createNoteBook : async (data: any) => {
+        return axios.post(PanelUrl+ "/notebooks", data)
     }
 }
