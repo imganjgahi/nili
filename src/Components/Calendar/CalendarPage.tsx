@@ -1,5 +1,5 @@
 import React from 'react'
-import NiliCalendar from '../NiliPicker/Calendar'
+import NiliCalendar from './'
 
 
 const CalendarPage: React.FC<any> = (props: any) => {
