@@ -62,7 +62,7 @@ class Modal extends React.Component<IProps, IState> {
                     <div className="modalFooter">
 
                         {(this.props.onOk) && (
-                            <Button onClick={() => {
+                            <Button className="confirmBtn" onClick={() => {
                                 if (this.props.onOk) {
                                     this.props.onOk()
                                 }
@@ -70,7 +70,7 @@ class Modal extends React.Component<IProps, IState> {
                                 OK
                         </Button>
                         )}
-                        <Button className="cancel" onClick={() => this.closeHandler()}> Close </Button>
+                        <Button className="cancelBtn" onClick={() => this.closeHandler()}> Close </Button>
                     </div>
                 </div>
             </div>

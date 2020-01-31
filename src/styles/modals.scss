@@ -45,9 +45,31 @@
     }
     .modalFooter {
         text-align: right;
-        padding: 15px;
-        border-top: 1px solid #ccc;
+        padding: 20px;
+        background-color: $header;
+        position: relative;
+        margin-top: 30px;
     }
+}
+@mixin modalBtn($right, $bgColor, $color: black) {
+        position: absolute;
+        right: $right;
+        top: -30px;
+        background: $bgColor;
+        color: $color;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+
+}
+
+.confirmBtn {
+    @include modalBtn(10px, #534340, white)
+}
+.cancelBtn {
+    @include modalBtn(70px, white)
 }
 .active {
     transform: rotateY(0deg);
