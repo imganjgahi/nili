@@ -12,13 +12,12 @@ type Iprops = {
 };
 const weekDays = (props: Iprops) => {
     const { year, month, min, max, daySelected, selectedDate, days } = props;
-    // console.log(year, month, days)
     const today = new Date()
     return (
         <div className="weekDays">
             {days.map((dayObject, i) => {
                 if (!dayObject) {
-                    return null;
+                    return <p key={i} className="niliDays disablead">  </p>;
                 }
                 let disable = false;
                 if (max && max < dayObject.date) {
@@ -30,9 +29,9 @@ const weekDays = (props: Iprops) => {
                 const activeTodayDate =
                     year === today.getFullYear() && dayObject.date.getMonth() === today.getMonth() && dayObject.date.getDate() === today.getDate();
                 const activeDate =
-                    dayObject.dayJalali === selectedDate.dayJalali &&
-                    dayObject.monthJalali === selectedDate.monthJalali &&
-                    dayObject.yearJalali === year;
+                    dayObject.day === selectedDate.day &&
+                    dayObject.month === selectedDate.month &&
+                    dayObject.year === year;
                 const classNames: string[] = ["niliDays"];
                 if (disable) {
                     classNames.push("disablead");
@@ -43,7 +42,7 @@ const weekDays = (props: Iprops) => {
                 if (activeTodayDate) {
                     classNames.push("daysActive");
                 }
-                if (!disable && dayObject.monthJalali !== month) {
+                if (!disable && dayObject.month !== month) {
                     classNames.push("notCurrent");
                 }
                 return (
@@ -55,7 +54,7 @@ const weekDays = (props: Iprops) => {
                                 daySelected(dayObject.year, dayObject.month, dayObject.day);
                             }
                         }}>
-                        {dayObject.dayJalali}
+                        {dayObject.day}
                     </p>
                 );
             })}
