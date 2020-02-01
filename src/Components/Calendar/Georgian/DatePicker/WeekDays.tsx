@@ -14,7 +14,7 @@ const weekDays = (props: Iprops) => {
     const { year, month, min, max, daySelected, selectedDate, days } = props;
     const today = new Date()
     return (
-        <div className="weekDays">
+        <div className="weekDays" style={{gridTemplateRows: `${Math.floor(days.length / 7)}, 42px`}}>
             {days.map((dayObject, i) => {
                 if (!dayObject) {
                     return <p key={i} className="niliDays disablead">  </p>;
@@ -27,11 +27,11 @@ const weekDays = (props: Iprops) => {
                     disable = true;
                 }
                 const activeTodayDate =
-                    year === today.getFullYear() && dayObject.date.getMonth() === today.getMonth() && dayObject.date.getDate() === today.getDate();
+                year === today.getFullYear() && dayObject.date.getMonth() === today.getMonth() && dayObject.date.getDate() === today.getDate();
                 const activeDate =
-                    dayObject.day === selectedDate.day &&
-                    dayObject.month === selectedDate.month &&
-                    dayObject.year === year;
+                dayObject.day === selectedDate.day &&
+                dayObject.month === selectedDate.month &&
+                dayObject.year === year;
                 const classNames: string[] = ["niliDays"];
                 if (disable) {
                     classNames.push("disablead");
@@ -42,7 +42,7 @@ const weekDays = (props: Iprops) => {
                 if (activeTodayDate) {
                     classNames.push("daysActive");
                 }
-                if (!disable && dayObject.month !== month) {
+                if (!disable && dayObject.month + 1 !== month) {
                     classNames.push("notCurrent");
                 }
                 return (
@@ -51,7 +51,7 @@ const weekDays = (props: Iprops) => {
                         className={classNames.join(" ")}
                         onClick={() => {
                             if (!disable) {
-                                daySelected(dayObject.year, dayObject.month, dayObject.day);
+                                daySelected(dayObject.year, dayObject.month + 1, dayObject.day);
                             }
                         }}>
                         {dayObject.day}

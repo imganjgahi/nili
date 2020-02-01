@@ -6,7 +6,7 @@
     display: none;
 }
 .niliDatePicker {
-    width: 300px;
+    width: 270px;
     border: 1px solid #bbb;
     /* min-height: 520px; */
     margin: 0 auto;
@@ -20,7 +20,7 @@
     color: black;
 }
 .niliCalendar {
-    width: 300px;
+    width: 270px;
     border: 1px solid #bbb;
     position: relative;
     z-index: 2;
@@ -59,8 +59,11 @@
     border: 1px solid white;
 }
 .calendarAction {
-    position: relative;
+    position: absolute;
     height: 30px;
+    width: 100%;
+    bottom: 0;
+    background-color: #00000073;
 }
 .header {
     padding: 5px 0;
@@ -78,6 +81,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    position: relative;
+    height: 150px;
 }
 .pickerCurrentDate {
     direction: rtl;
@@ -98,12 +103,10 @@
 .pervBtn {
     left: 0;
     border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
 }
 .nextBtn {
     right: 0;
     border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
 }
 .month {
     padding: 5px;
@@ -111,20 +114,21 @@
     height: 55px;
 }
 .weekTitle {
-    display: flex;
+    display: grid;
     justify-content: space-between;
-    padding: 0 15px;
+    grid-template-columns: repeat(7, 1fr);
+    // padding: 0 15px;
     font-size: 12px;
 }
 
 .niliDays.disablead {
-    background-color: #ccc;
-    color: #8a8888;
-    cursor: not-allowed;
+    background-color: #fff;
+    color: #fff;
+    cursor: default;
 }
 .niliDays.disablead:hover {
-    background-color: #ccc;
-    color: #8a8888;
+    background-color: #fff;
+    color: #fff;
 }
 
 .jallaliCurrentTime span {
@@ -143,10 +147,11 @@
 }
 
 .weekDays {
-    display: flex;
-    padding: 0 15px;
-    flex-wrap: wrap;
-    /* height: 230px; */
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(7, 1fr);
+    // grid-template-rows: repeat(6, 42px);
+    padding-bottom: 15px;
 }
 .monthNames {
     flex-basis: 30%;

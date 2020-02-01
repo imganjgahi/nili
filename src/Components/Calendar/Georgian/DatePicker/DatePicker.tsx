@@ -11,6 +11,7 @@ type IProps = {
     showTime?: boolean;
     max?: Date;
     min?: Date;
+    headerImage?: string
 }
 
 const CalendarPage: React.FC<IProps> = (props: IProps) => {
@@ -44,7 +45,6 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
         let year = selectDate.year;
         const theMonthIndex = selectDate.month;
         const selectDay = selectDate.day;
-        console.log("monthIndex", theMonthIndex)
         setDate(selectDate)
         setYear(year)
         setMonthIndex(theMonthIndex)
@@ -68,20 +68,21 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
             }
         }
         
-        console.log("cal: ", cal.format("YYYY-MM-DD"))
-        console.log("createMonth: ", monthIndex)
         if (dayOfWeek < 0) {
             dayOfWeek = 6;
         }
         const totalDays = theDaysOfMonth + dayOfWeek;
         const daysArray = [];
         let day = 1;
+        
         for (let i = 0; i < totalDays; i++) {
             if (i < dayOfWeek) {
                 daysArray.push(null)
             } else if (i - dayOfWeek < theDaysOfMonth) {
-                daysArray.push(new NDate(new Date(currentSelectYear, monthIndex + 1, day)));
+                daysArray.push(new NDate(new Date(currentSelectYear, monthIndex, day)));
                 day++;
+            } else {
+                daysArray.push(null)
             }
         }
         return daysArray;
@@ -118,7 +119,6 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
             theMainYear--;
             currentMonth = 12;
         }
-        console.log("pervMonth: ", currentMonth)
         const newDate = new NDate(new Date(theMainYear, currentMonth, 1));
         setDays(createMonth(theMainYear, currentMonth - 1));
         setYear(theMainYear)
@@ -135,7 +135,6 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
             theMainYear++;
             currentMonth = 1;
         }
-        console.log("nextMonth: ", currentMonth)
         const newDate = new NDate(new Date(theMainYear, currentMonth, 1));
         setDays(createMonth(theMainYear, currentMonth - 1));
         setYear(theMainYear)
@@ -165,7 +164,7 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
                 hour={mainHour}
                 minute={mainMinute}
                 showMinute={minutesModal}
-                header={""}
+                headerImage={props.headerImage ? props.headerImage : null}
                 dayTime={(val) => dayTime(val)}
                 nextMonth={(val) => nextMonth(val)}
                 pervMonth={(val) => pervMonth(val)}

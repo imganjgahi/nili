@@ -12,7 +12,7 @@ type IProps = {
     showMinute: boolean;
     monthModal: () => void;
     yearModal: () => void;
-    header: string;
+    headerImage: string | null;
     showTime: boolean;
     monthName: string[];
     hour: number;
@@ -28,13 +28,12 @@ const Header: React.FC<IProps> = (props: IProps) => {
     const {
         year,
         month,
-        day,
         monthName,
         showHour,
         hour,
         minute,
         showMinute,
-        header,
+        headerImage,
         dayTime,
         nextMonth,
         pervMonth,
@@ -45,9 +44,9 @@ const Header: React.FC<IProps> = (props: IProps) => {
     return (
         <div
             className={model === "DatePicke" ? "pickerHeader" : "header"}
-            style={{ backgroundImage: `url(${header})` }}>
+            style={headerImage ? { backgroundImage: `url(${headerImage})` } : {}}>
             <div className={model === "DatePicke" ? "pickerCurrentDate" : "jallaliCurrentDate"}>
-                <p> {`${day > 0 ? day : ""} ${monthName[month - 1]} ${year > 0 ? year : ""}`}</p>
+                {/* <p> {` ${monthName[month - 1]} ${year > 0 ? year : ""}`}</p> */}
                 {showHour || showMinute ? (
                     <p className="jallaliCurrentTime">
                         <span onClick={() => dayTime("h")}>{hour > 9 ? hour : "0" + hour}</span>
@@ -58,15 +57,15 @@ const Header: React.FC<IProps> = (props: IProps) => {
             </div>
             {!props.showTime && (
                 <div className="calendarAction">
-                    <button className="NiliCalbtn pervBtn" onClick={() => nextMonth(month)}>
+                    <button className="NiliCalbtn pervBtn" onClick={() => pervMonth(month)}>
                         {" "}
                         <img alt="" src={previus} style={{ width: "20px" }} />{" "}
                     </button>
                     <div>
-                        <span onClick={monthModal}> ماه </span> {" / "}
-                        <span onClick={yearModal}> سال </span>
+                        <span onClick={monthModal}> {monthName[month - 1]} </span> {" / "}
+                        <span onClick={yearModal}> {year > 0 ? year : ""} </span>
                     </div>
-                    <button className="NiliCalbtn nextBtn" onClick={() => pervMonth(month)}>
+                    <button className="NiliCalbtn nextBtn" onClick={() => nextMonth(month)}>
                         {" "}
                         <img alt="" src={next} style={{ width: "20px" }} />{" "}
                     </button>
