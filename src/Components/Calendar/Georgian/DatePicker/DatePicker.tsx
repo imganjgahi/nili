@@ -4,14 +4,27 @@ import NDate from '@nepo/ndate';
 import Header from './Header';
 import WeekDays from './WeekDays';
 import WeekHeader from './weekHeader';
+import MonthModal from './monthModal';
+import YearModal from './yearModal';
+import HoursModal from './hourModal';
+import MinutesModal from './minuteModal';
 
+interface ISendDate {
+    year: number;
+    month: number;
+    day: number;
+    hour?: number;
+    minute?: number;
+}
 
 type IProps = {
     theDate: Date;
     showTime?: boolean;
     max?: Date;
     min?: Date;
-    headerImage?: string
+    headerImage?: string;
+    setTime?: boolean;
+    sendDate: (newDate: ISendDate) => void;
 }
 
 const CalendarPage: React.FC<IProps> = (props: IProps) => {
@@ -27,7 +40,7 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
     const [calendarModal, showCalendarModal] = useState<boolean>(false);
     const [yearModal, showYearsModal] = useState<boolean>(false);
     const [monthModal, showMonthsModal] = useState<boolean>(false);
-    const [daysModal, showDaysModal] = useState<boolean>(false);
+    const [daysModal, showDaysModal] = useState<boolean>(true);
     const [hoursModal, showHoursModal] = useState<boolean>(false);
     const [minutesModal, showMinutesModal] = useState<boolean>(false);
     const [modalsOpacity, setOpacity] = useState<number>(1);
@@ -67,14 +80,14 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
                 theDaysOfMonth = 29;
             }
         }
-        
+
         if (dayOfWeek < 0) {
             dayOfWeek = 6;
         }
         const totalDays = theDaysOfMonth + dayOfWeek;
         const daysArray = [];
         let day = 1;
-        
+
         for (let i = 0; i < totalDays; i++) {
             if (i < dayOfWeek) {
                 daysArray.push(null)
@@ -147,12 +160,61 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
     };
 
     const daySelected = (y: number, m: number, d: number) => {
-        console.log(y, m, d)
+        // const newDate = new NDate([year, month, daySelected, this.state.hour, this.setState.minute]);
+        
+        const newDate = new NDate(new Date(y, m - 1, d, mainHour, mainMinute));
+        if (!props.setTime) {
+
+            setday(d);
+            setDate(newDate);
+            props.sendDate({ year: y, month: m, day: d });
+            return;
+        }
+        
+        setYear(y);
+        setMonth(m);
+        setday(d);
+        resetModals();
+        showHoursModal(true)
+        changeView();
     }
 
     const max = props.max ? new NDate(props.max).date : null;
     const min = props.min ? new NDate(props.min).date : null;
+    const theMonthSelected = (theMonth: number) => {
 
+        setMonth(theMonth);
+        setDays(createMonth(mainYear, theMonth - 1))
+        resetModals();
+        showDaysModal(true);
+        changeView();
+    };
+    const theYearSelected = (y: number) => {
+        setYear(y);
+        resetModals()
+        showMonthsModal(true)
+        changeView();
+    };
+    const theHourSelected = (h: number) => {
+        setHour(h);
+        resetModals()
+        showMinutesModal(true)
+        changeView();
+    };
+    const theMinuteSelected = (m: number) => {
+        setMinute(m);
+        setDays(createMonth(mainYear, mainMonth - 1))
+        resetModals()
+        showDaysModal(true)
+        changeView();
+        props.sendDate({
+            year: mainYear,
+            month: mainMonth,
+            day: mainday,
+            hour: mainHour,
+            minute: m,
+        });
+    };
     return (
         <div className="niliDatePicker">
             <Header
@@ -171,15 +233,17 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
                 monthModal={() => {
                     resetModals()
                     showMonthsModal(true)
+                    changeView()
                 }}
                 yearModal={() => {
                     resetModals()
                     showYearsModal(true)
+                    changeView()
                 }}
                 showTime={props.showTime ? true : false}
                 model={"DatePicke"} />
-                <WeekHeader />
-            <WeekDays
+            {daysModal && <WeekHeader />}
+            {daysModal && <WeekDays
                 days={mainDays}
                 year={mainYear}
                 month={mainMonth}
@@ -187,7 +251,36 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
                 min={min}
                 selectedDate={mainDate}
                 daySelected={(y, m, d) => daySelected(y, m, d)}
-            />
+            />}
+            {monthModal && <MonthModal
+                monthName={monthName}
+                opacity={modalsOpacity}
+                monthSelected={(month) => theMonthSelected(month)} />}
+            {yearModal && <YearModal
+                years={years}
+                opacity={modalsOpacity}
+                yearSelected={(year) => theYearSelected(year)} />}
+            {hoursModal || minutesModal ? (
+                <div style={{ position: "relative" }}>
+                    {hoursModal && <HoursModal
+                        hour={mainHour}
+                        opacity={modalsOpacity}
+                        showHour={hoursModal}
+                        hours={hours}
+                        secoundHours={secoundHours}
+                        timeFormat={timeFormat}
+                        hourSelected={(hour) => theHourSelected(hour)}
+                    />}
+                    {minutesModal ? (
+                        <MinutesModal
+                            minute={mainMinute}
+                            opacity={modalsOpacity}
+                            minutes={minutes}
+                            minuteSelected={(min) => theMinuteSelected(min)}
+                        />
+                    ) : null}
+                </div>
+            ) : null}
         </div>
     )
 }

@@ -17,7 +17,7 @@ export const MONTH_NAMES = [
 ];
 export const YEARS = (currentYear: number): number[] => {
     let ys: number[] = [];
-    for (let y = currentYear + 10; y > 1300; y--) {
+    for (let y = currentYear + 10; y > 2000; y--) {
         ys.push(y);
     }
     return ys;

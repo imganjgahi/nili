@@ -200,6 +200,7 @@
     overflow-y: scroll;
     opacity: 1;
     transition: all 300ms;
+    flex-direction: row-reverse;
 }
 .years {
     flex-basis: 23%;

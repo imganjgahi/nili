@@ -7,7 +7,10 @@ const Calendar: React.FC<any> = (props: any) => {
         <div >
 
            <input type="date" />
-           <DatePicker theDate= {new Date()} headerImage={"./images/calendar/bahman.jpg"} />
+           <DatePicker 
+           setTime={true}
+           theDate= {new Date()} headerImage={"./images/calendar/bahman.jpg"} 
+           sendDate={(newDate) => console.log("sendDate", newDate)} />
         </div>
         )
 }
