@@ -15,8 +15,6 @@ import CalendarPage from '../Calendar/CalendarPage';
 
 type IProps = typeof AuthActions & IAuthState & IFormProps & RouteComponentProps
 const LayoutManager: React.FC<IProps> = (props: IProps) => {
-
-    console.log("IS Auth", props.isAuth)
     const authCheck = (routh: any) => {
         return props.isAuth ? routh : <Route path="/" component={Home} />
     }

@@ -69,7 +69,7 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
         }
         
         console.log("cal: ", cal.format("YYYY-MM-DD"))
-        console.log("dayOfWeek: ", dayOfWeek)
+        console.log("createMonth: ", monthIndex)
         if (dayOfWeek < 0) {
             dayOfWeek = 6;
         }

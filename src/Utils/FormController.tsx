@@ -168,9 +168,6 @@ const FromItemWrapper = (props: any) => {
             props.initialValues(props.name, props.rules)
         
     }, [])
-    if(props.children){
-        console.log("FromItemWrapper", props.children)
-    }
     return (
         <div className="itemWrapper">
             {props.itemElement}
