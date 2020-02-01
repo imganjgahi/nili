@@ -37,7 +37,6 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
     const [mainDays, setDays] = useState<any>([])
     const [mainHour, setHour] = useState<number>(0);
     const [mainMinute, setMinute] = useState<number>(0);
-    const [calendarModal, showCalendarModal] = useState<boolean>(false);
     const [yearModal, showYearsModal] = useState<boolean>(false);
     const [monthModal, showMonthsModal] = useState<boolean>(false);
     const [daysModal, showDaysModal] = useState<boolean>(true);
@@ -277,6 +276,19 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
                             minuteSelected={(min) => theMinuteSelected(min)}
                         />
                     ) : null}
+                    
+                    {hoursModal && <div className="ampm">
+                            <div
+                                className={timeFormat === "am" ? "am active" : "am"}
+                                onClick={() => setTimeFormat("am")}>
+                                AM
+                            </div>
+                            <div
+                                className={timeFormat === "pm" ? "pm active" : "pm"}
+                                onClick={() => setTimeFormat("pm")}>
+                                PM
+                            </div>
+                        </div>}
                 </div>
             ) : null}
         </div>

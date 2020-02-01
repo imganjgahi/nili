@@ -47,13 +47,13 @@ const Header: React.FC<IProps> = (props: IProps) => {
             style={headerImage ? { backgroundImage: `url(${headerImage})` } : {}}>
             <div className={model === "DatePicke" ? "pickerCurrentDate" : "jallaliCurrentDate"}>
                 {/* <p> {` ${monthName[month - 1]} ${year > 0 ? year : ""}`}</p> */}
-                {showHour || showMinute ? (
+                {/* {showHour || showMinute ? (
                     <p className="jallaliCurrentTime">
                         <span onClick={() => dayTime("h")}>{hour > 9 ? hour : "0" + hour}</span>
                         <span>:</span>
                         <span onClick={() => dayTime("m")}>{minute > 9 ? minute : "0" + minute}</span>
                     </p>
-                ) : null}
+                ) : null} */}
             </div>
             {!props.showTime && (
                 <div className="calendarAction">
@@ -62,8 +62,19 @@ const Header: React.FC<IProps> = (props: IProps) => {
                         <img alt="" src={previus} style={{ width: "20px" }} />{" "}
                     </button>
                     <div>
-                        <span onClick={monthModal}> {monthName[month - 1]} </span> {" / "}
+                    {showHour || showMinute ? (
+                    <React.Fragment>
+                        <span onClick={() => dayTime("h")}>{hour > 9 ? hour : "0" + hour}</span>
+                        <span>{" : "}</span>
+                        <span onClick={() => dayTime("m")}>{minute > 9 ? minute : "0" + minute}</span>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                         <span onClick={monthModal}> {monthName[month - 1]} </span> {" / "}
                         <span onClick={yearModal}> {year > 0 ? year : ""} </span>
+                    </React.Fragment>
+                )}
+                       
                     </div>
                     <button className="NiliCalbtn nextBtn" onClick={() => nextMonth(month)}>
                         {" "}
