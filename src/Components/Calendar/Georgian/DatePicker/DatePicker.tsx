@@ -9,12 +9,12 @@ import YearModal from './yearModal';
 import HoursModal from './hourModal';
 import MinutesModal from './minuteModal';
 
-interface ISendDate {
+export interface ISendDate {
     year: number;
     month: number;
     day: number;
-    hour?: number;
-    minute?: number;
+    hour: number;
+    minute: number;
 }
 
 type IProps = {
@@ -160,14 +160,12 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
     };
 
     const daySelected = (y: number, m: number, d: number) => {
-        // const newDate = new NDate([year, month, daySelected, this.state.hour, this.setState.minute]);
-        
         const newDate = new NDate(new Date(y, m - 1, d, mainHour, mainMinute));
         if (!props.setTime) {
 
             setday(d);
             setDate(newDate);
-            props.sendDate({ year: y, month: m, day: d });
+            props.sendDate({ year: y, month: m, day: d, hour: 0, minute: 0 });
             return;
         }
         

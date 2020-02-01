@@ -7,7 +7,10 @@ const CalendarPage: React.FC<any> = (props: any) => {
     return (
         <div style={{position: "relative"}}>
 
-            <NiliCalendar calendar={true} header={"./images/calendar/bahman.jpg"}/>
+            <NiliCalendar 
+            setTime={true}
+            calendar={true} 
+            headerImage={"./images/calendar/bahman.jpg"}/>
         </div>
         )
 }
