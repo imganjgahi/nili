@@ -34,8 +34,8 @@
     flex-direction: column;
     justify-content: space-between;
     .modalHeader{
-        background-color: $header;
-        color: $headerTitle;
+        background-color: $theme_light;
+        color: $dark_title;
         padding: 10px 15px;
     }
 
@@ -46,12 +46,12 @@
     .modalFooter {
         text-align: right;
         padding: 20px;
-        background-color: $header;
+        background-color: $theme_light;
         position: relative;
         margin-top: 30px;
     }
 }
-@mixin modalBtn($right, $bgColor, $color: black) {
+@mixin modalBtn($right, $bgColor, $color: $dark_title) {
         position: absolute;
         right: $right;
         top: -30px;
@@ -66,10 +66,12 @@
 }
 
 .confirmBtn {
-    @include modalBtn(10px, #534340, white)
+    @include modalBtn(10px, $theme_light);
+    box-shadow: 0 -2px 2px #666;
 }
 .cancelBtn {
-    @include modalBtn(70px, white)
+    @include modalBtn(70px, white);
+    box-shadow: 0 2px 2px #666;
 }
 .active {
     transform: rotateY(0deg);

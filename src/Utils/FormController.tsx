@@ -45,7 +45,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             const err = this.state.err;
             rules.forEach((rule: any) => {
                 if (rule.required && isValid) {
-                    isValid = value.trim() !== ""
+                    isValid = value.toString().trim() !== ""
                     if (!isValid) {
                         msg = rule.msg;
                     }

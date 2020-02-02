@@ -3,6 +3,8 @@ import Modal from '../../../Utils/Modal/Modal';
 import * as PanelActions from '../../../actions/Panel/index';
 import { IPanelState } from '../../../actions/Panel/model';
 import { FormCreator, IFormProps } from "../../../Utils/FormController";
+import Select from '../../../Utils/Select/Select';
+import { BlankBox } from '../../../Utils/BlankBox/BlankBox';
 
 type IProps = IPanelState & typeof PanelActions & IFormProps
 const CreateTask: React.FC<IProps> = (props: IProps) => {
@@ -36,11 +38,7 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                 }]
                 
             },
-            <select id="noteBookId">
-                <option value={1}>note 1</option>
-                <option value={2}>note 2</option>
-                <option value={3}>mote 3</option>
-            </select>
+            <Select url={"/notebooks"} />
             )}
             <label htmlFor="title"> Title</label>
             {getFormItem({
@@ -74,12 +72,14 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                 }]
                 
             },
-            <select id="category" onChange={() => console.log("change")}>
-                <option value="Sport">Sport</option>
-                <option value="Study">Study</option>
-                <option value="Delevop Time">Delevop Time</option>
-            </select>
+            <Select optionList={[
+                {id: "Sport", title: "Sport"},
+                {id: "Study", title: "Study"},
+                {id: "Event", title: "Event"},
+                {id: "Delevop Time", title: "Delevop Time"},
+            ]} />
             )}
+             <BlankBox />
             </form>
         </Modal>
     )

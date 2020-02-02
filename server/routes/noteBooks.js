@@ -7,6 +7,7 @@ const passport = require('passport');
 const NoteBooksController = require('../controllers/noteBooksController');
 
 
+//   MAIN URL = '/api/notebooks'
 //TASKS ROUTES START WHIT /TASKS/
 router.get('/', passport.authenticate('jwt', {session: false}), NoteBooksController.getAllNoteBooks);
 router.get('/:id/tasks', passport.authenticate('jwt', {session: false}), NoteBooksController.getNoteBookTask);
