@@ -17,6 +17,8 @@ type IProps = {
     headerImage?: string;
     placeholder?: string;
     position?: "top" | "right";
+    name?: string;
+    id?:string;
 }
 const Calendar: React.FC<IProps> = (props: IProps) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -119,8 +121,9 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
                       
                       <MaskedInput
                     className={"txtInput"}
+                    id={props.id}
                     onClick={() => showCalendar(true)}
-                    name="date"
+                    name={props.name}
                     value={inputValue}
                     keepCharPositions={true}
                     guide={true}

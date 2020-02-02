@@ -12,6 +12,7 @@ export interface IProps {
     valueProp?: string;
     authorization?: string;
     initialValue?: number | string;
+    id?: string;
 }
 
 export interface IState {
@@ -56,7 +57,7 @@ class Select extends React.Component<IProps, IState> {
     }
 
     getOptions = (url: string) => {
-        let authorization: string = ""+localStorage!.getItem("Nili");
+        let authorization: string = "" + localStorage!.getItem("Nili");
         if (this.props.authorization) {
             authorization = this.props.authorization
         }
@@ -96,11 +97,11 @@ class Select extends React.Component<IProps, IState> {
         const displayProp = this.props.displayProp ? this.props.displayProp : "title";
         const valueProp = this.props.valueProp ? this.props.valueProp : "id";
         if (this.props.initialValue !== undefined) {
-            const displayValueItem: false | any[] = this.state.optionList.length > 0 && 
-            this.state.optionList.filter(item => {
-                return this.props.initialValue && 
-                item[valueProp].toString() === this.props.initialValue.toString()
-            });
+            const displayValueItem: false | any[] = this.state.optionList.length > 0 &&
+                this.state.optionList.filter(item => {
+                    return this.props.initialValue &&
+                        item[valueProp].toString() === this.props.initialValue.toString()
+                });
             if (displayValueItem && displayValueItem.length > 0) {
                 const displayValue = displayValueItem[0][displayProp]
                 this.setState({ value: this.props.initialValue.toString(), displayValue }, () => {
@@ -199,9 +200,9 @@ class Select extends React.Component<IProps, IState> {
         if (this.props.url || this.props.optionList) {
             options = [];
             this.state.optionList.forEach((option: any, i: number) => {
-                const optionElement = (z: number) => (<div key={i} id={option[valueProp]} 
-                    className={z === option[valueProp] ? "selectOption activeOption" : "selectOption"} 
-                onClick={() => this.onSelectHandler(option)}>
+                const optionElement = (z: number) => (<div key={i} id={option[valueProp]}
+                    className={z === option[valueProp] ? "selectOption activeOption" : "selectOption"}
+                    onClick={() => this.onSelectHandler(option)}>
                     {option[displayProp]}
                 </div>)
                 options.push({ [valueProp]: option[valueProp], [displayProp]: option[displayProp], optionElement })
@@ -212,19 +213,19 @@ class Select extends React.Component<IProps, IState> {
         React.Children.forEach(this.props.children, (x, i) => {
             let y = x as React.ReactElement;
             if (y.type === Option) {
-                const optionElement = (z: number) => (<div key={y.props[valueProp]} 
-                id={y.props[valueProp]} 
-                className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"} 
-                onClick={() => this.onSelectHandler(y)}>
+                const optionElement = (z: number) => (<div key={y.props[valueProp]}
+                    id={y.props[valueProp]}
+                    className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"}
+                    onClick={() => this.onSelectHandler(y)}>
                     {y.props[displayProp]}
                 </div>)
                 options.push({ [valueProp]: y.props[valueProp], [displayProp]: y.props[displayProp], optionElement })
 
             }
             if (y.type === COption) {
-                const optionElement = (z: number) => (<div key={y.props[valueProp]} id={y.props[valueProp]} 
-                className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"} 
-                onClick={() => this.onSelectHandler(y)}>
+                const optionElement = (z: number) => (<div key={y.props[valueProp]} id={y.props[valueProp]}
+                    className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"}
+                    onClick={() => this.onSelectHandler(y)}>
                     {typeof y.props.children === "function" ? y.props.children(y.props) : y.props.children}
                 </div>)
                 options.push({ [valueProp]: y.props[valueProp], [displayProp]: y.props[displayProp], optionElement })
@@ -241,7 +242,7 @@ class Select extends React.Component<IProps, IState> {
             const matchData = this.state.searchValue.toLocaleLowerCase().trim()
             options = options.filter((option: any) => option[displayProp].toLocaleLowerCase().trim().match(matchData));
         }
-        return  options.map((option: any) => {
+        return options.map((option: any) => {
             return (option.optionElement ? option.optionElement(options[this.state.activeItem][valueProp]) : null)
         })
     }
@@ -252,6 +253,7 @@ class Select extends React.Component<IProps, IState> {
                 <div className="displayContainer" onClick={() => this.optionHandler(true)}>
                     <div className="inputContainer">
                         <input
+                            id={this.props.id}
                             tabIndex={1}
                             className="selectInput" ref={this.ref} onKeyDown={this._handleKeyDown}
                             onBlur={this.hideOption}
@@ -268,8 +270,8 @@ class Select extends React.Component<IProps, IState> {
                         \/
                     </div>
                 </div>
-                <div ref={this.optionContainer} tabIndex={-1} 
-                className={this.state.showOption ? "optionContainer" : "optionContainer optionHide"}>
+                <div ref={this.optionContainer} tabIndex={-1}
+                    className={this.state.showOption ? "optionContainer" : "optionContainer optionHide"}>
                     {this.renderOptionList(this.state.optionList)}
                 </div>
             </div>
