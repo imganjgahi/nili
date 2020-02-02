@@ -25,7 +25,7 @@ exports.createTasks = (req, res, next) => {
         status: 1,
         avatar: "TaskModel.jpg",
         userId: req.user.id,
-        noteBookId: data.noteBookId,
+        noteBookId: 1, // data.noteBookId,
     }).then(() => {
         return res.json({ message: "TaskModel Added" })
     }).catch(err => {
@@ -48,7 +48,7 @@ exports.updateTasks = (req, res, next) => {
         task.status = data.status;
         task.avatar = data.avatar;
         task.userId= req.user.id,
-        task.noteBookId= data.noteBookId,
+        task.noteBookId= 1, //data.noteBookId,
         task.save();
         return res.status(200).json({ message: "Task was updated" })
     }).catch(err => {
