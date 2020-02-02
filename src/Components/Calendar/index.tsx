@@ -16,6 +16,7 @@ type IProps = {
     calendar?: true;
     headerImage?: string;
     placeholder?: string;
+    position?: "top" | "right";
 }
 const Calendar: React.FC<IProps> = (props: IProps) => {
     const [inputValue, setInputValue] = useState<string>("");
@@ -109,6 +110,7 @@ const Calendar: React.FC<IProps> = (props: IProps) => {
                <React.Fragment>
                    <div className="datePickerCloser" onClick={() => showCalendar(false)}></div>
                    <DatePicker 
+                   position={props.position}
                setTime={props.setTime}
                theDate= {new Date()} headerImage={props.headerImage} 
                sendDate={(newDate) => dateHandler(newDate)} />

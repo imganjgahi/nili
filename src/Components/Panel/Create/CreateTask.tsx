@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from '../../../Utils/Modal/Modal';
 import * as PanelActions from '../../../actions/Panel/index';
 import { IPanelState } from '../../../actions/Panel/model';
 import { FormCreator, IFormProps } from "../../../Utils/FormController";
 import Select from '../../../Utils/Select/Select';
-import { BlankBox } from '../../../Utils/BlankBox/BlankBox';
+import Calendar from '../../Calendar';
 
 type IProps = IPanelState & typeof PanelActions & IFormProps
 const CreateTask: React.FC<IProps> = (props: IProps) => {
+
+    const [taskOption, showTaskOption] = useState<boolean>(false)
 
     const onOk = (e:any = undefined) => {
         if(e){
@@ -28,9 +30,9 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
         onOk={onOk}
         onCancel= {onCancel}>
             <form onSubmit={onOk}>
-            <label htmlFor="noteBookId">For NoteBook</label>
+            <label htmlFor="category">Category</label>
             {getFormItem({
-                name: "noteBookId",
+                name: "category",
                 initialValue: "Delevop Time",
                 rules:[{
                     required: true,
@@ -38,7 +40,12 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                 }]
                 
             },
-            <Select url={"/notebooks"} />
+            <Select optionList={[
+                {id: "Sport", title: "Sport"},
+                {id: "Study", title: "Study"},
+                {id: "Event", title: "Event"},
+                {id: "Delevop Time", title: "Delevop Time"},
+            ]} />
             )}
             <label htmlFor="title"> Title</label>
             {getFormItem({
@@ -60,26 +67,16 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                 }]
                 
             },
-            <input id="description" type="text" placeholder="Task Description" />
+            <textarea id="description" placeholder="Task Description"></textarea>
             )}
-            <label htmlFor="category">Category</label>
-            {getFormItem({
-                name: "category",
-                initialValue: "Delevop Time",
-                rules:[{
-                    required: true,
-                    msg: "filed must fill"
-                }]
-                
-            },
-            <Select optionList={[
-                {id: "Sport", title: "Sport"},
-                {id: "Study", title: "Study"},
-                {id: "Event", title: "Event"},
-                {id: "Delevop Time", title: "Delevop Time"},
-            ]} />
-            )}
-             <BlankBox />
+            <div>
+                <h3 onClick={()=> showTaskOption(true)}>Options +</h3>
+                {taskOption && (
+                    <div className="taskOptionForm">
+                        <Calendar position="top" />
+                    </div>
+                )}
+            </div>
             </form>
         </Modal>
     )
