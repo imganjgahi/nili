@@ -25,7 +25,7 @@ type IProps = {
     headerImage?: string;
     setTime?: boolean;
     sendDate: (newDate: ISendDate) => void;
-    position?: "top" | "right";
+    position?: "bottom" | "right";
 }
 
 const CalendarPage: React.FC<IProps> = (props: IProps) => {
@@ -214,7 +214,7 @@ const CalendarPage: React.FC<IProps> = (props: IProps) => {
         });
     };
     return (
-        <div className="niliDatePicker" style={props.position === "top" ? {bottom: "100%"} : {top: "100%"} }>
+        <div className="niliDatePicker" style={props.position === "bottom" ? {bottom: "100%"} : {top: "100%"} }>
             <Header
                 year={mainYear}
                 month={mainMonth}

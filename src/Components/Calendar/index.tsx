@@ -16,7 +16,7 @@ type IProps = {
     calendar?: true;
     headerImage?: string;
     placeholder?: string;
-    position?: "top" | "right";
+    position?: "bottom" | "right";
     name?: string;
     id?:string;
 }

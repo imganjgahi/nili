@@ -91,7 +91,7 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                                 }]
 
                             },
-                                <Calendar id="doDate" position="top" />
+                                <Calendar id="doDate" position="bottom" />
                             )}
                             <label htmlFor="mode"> mode </label>
                             {getFormItem({
@@ -103,7 +103,7 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                                 }]
 
                             },
-                                <Select id="repeat Mode" optionList={[
+                                <Select position="bottom" id="repeatMode" optionList={[
                                     { id: "1", title: "dont Repeat" },
                                     { id: "2", title: "Repeat evreyDay" },
                                     { id: "3", title: "Reminde me on" },

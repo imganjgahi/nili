@@ -13,6 +13,7 @@ export interface IProps {
     authorization?: string;
     initialValue?: number | string;
     id?: string;
+    position?: "bottom";
 }
 
 export interface IState {
@@ -159,6 +160,7 @@ class Select extends React.Component<IProps, IState> {
         }
     }
     onSelectHandler = (data: any) => {
+        console.log("DATA: ", data)
         const displayProp = this.props.displayProp ? this.props.displayProp : "title";
         const valueProp = this.props.valueProp ? this.props.valueProp : "id";
         this.setState({
@@ -202,7 +204,10 @@ class Select extends React.Component<IProps, IState> {
             this.state.optionList.forEach((option: any, i: number) => {
                 const optionElement = (z: number) => (<div key={i} id={option[valueProp]}
                     className={z === option[valueProp] ? "selectOption activeOption" : "selectOption"}
-                    onClick={() => this.onSelectHandler(option)}>
+                    onClick={() => {
+                        console.log("onClick : ", option);
+                        this.onSelectHandler(option)
+                    }}>
                     {option[displayProp]}
                 </div>)
                 options.push({ [valueProp]: option[valueProp], [displayProp]: option[displayProp], optionElement })
@@ -216,7 +221,10 @@ class Select extends React.Component<IProps, IState> {
                 const optionElement = (z: number) => (<div key={y.props[valueProp]}
                     id={y.props[valueProp]}
                     className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"}
-                    onClick={() => this.onSelectHandler(y)}>
+                    onClick={() => {
+                        console.log("OPTION: ", y)
+                        this.onSelectHandler(y)
+                    }}>
                     {y.props[displayProp]}
                 </div>)
                 options.push({ [valueProp]: y.props[valueProp], [displayProp]: y.props[displayProp], optionElement })
@@ -261,7 +269,9 @@ class Select extends React.Component<IProps, IState> {
                                 display: this.state.showInput ? "block" : "none",
                                 width: this.state.searchValue.length === 0 ? "19px" : (this.state.searchValue.length * 9) + "px"
                             }}
-                            type="text" onChange={(event) => this.onChangeHandler(event)} value={this.state.searchValue} />
+                            type="text" 
+                            onChange={(event) => this.onChangeHandler(event)} 
+                            value={this.state.searchValue} />
                     </div>
                     <div className="selectDisplay">
                         {this.state.displayValue}
@@ -270,7 +280,7 @@ class Select extends React.Component<IProps, IState> {
                         \/
                     </div>
                 </div>
-                <div ref={this.optionContainer} tabIndex={-1}
+                <div ref={this.optionContainer} tabIndex={-1} style={this.props.position === "bottom" ? {bottom: "100%"} : { top: "100%"}}
                     className={this.state.showOption ? "optionContainer" : "optionContainer optionHide"}>
                     {this.renderOptionList(this.state.optionList)}
                 </div>
