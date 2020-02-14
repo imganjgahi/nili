@@ -11,7 +11,7 @@ export interface IProps {
     displayProp?: string;
     valueProp?: string;
     authorization?: string;
-    initialValue?: number | string;
+    initialvalue?: number | string;
     id?: string;
     position?: "bottom";
 }
@@ -97,15 +97,15 @@ class Select extends React.Component<IProps, IState> {
     setInitialValue() {
         const displayProp = this.props.displayProp ? this.props.displayProp : "title";
         const valueProp = this.props.valueProp ? this.props.valueProp : "id";
-        if (this.props.initialValue !== undefined) {
+        if (this.props.initialvalue !== undefined) {
             const displayValueItem: false | any[] = this.state.optionList.length > 0 &&
                 this.state.optionList.filter(item => {
-                    return this.props.initialValue &&
-                        item[valueProp].toString() === this.props.initialValue.toString()
+                    return this.props.initialvalue &&
+                        item[valueProp].toString() === this.props.initialvalue.toString()
                 });
             if (displayValueItem && displayValueItem.length > 0) {
                 const displayValue = displayValueItem[0][displayProp]
-                this.setState({ value: this.props.initialValue.toString(), displayValue }, () => {
+                this.setState({ value: this.props.initialvalue.toString(), displayValue }, () => {
                     if (this.props.onChange) {
                         this.props.onChange(this.state.value)
                     }

@@ -16,6 +16,7 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
             e.preventDefault()
         }
         const { err, data } = props.onFormSubmit();
+        console.log("Data", data)
         if (!err) {
             props.CreateTask(data)
         }
@@ -42,7 +43,7 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                 <label htmlFor="category">Category</label>
                 {getFormItem({
                     name: "category",
-                    initialValue: "Delevop Time",
+                    initialvalue: "Delevop Time",
                     rules: [{
                         required: true,
                         msg: "filed must fill"
@@ -91,12 +92,12 @@ const CreateTask: React.FC<IProps> = (props: IProps) => {
                                 }]
 
                             },
-                                <Calendar id="doDate" position="bottom" />
+                                <Calendar onChange={(value)=> console.log("CAL VALUE: ", value)} id="doDate" position="bottom" />
                             )}
                             <label htmlFor="mode"> mode </label>
                             {getFormItem({
                                 name: "mode",
-                                initialValue: "1",
+                                initialvalue: "1",
                                 rules: [{
                                     required: true,
                                     msg: "filed must fill"

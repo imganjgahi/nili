@@ -3,7 +3,7 @@ import * as React from 'react';
 type IRules = { [key: string]: any, msg: string }[] | undefined
 interface IFormItem {
     name: string;
-    initialValue?: string | number;
+    initialvalue?: string | number;
     rules?: IRules;
     label?: string;
 }
@@ -132,6 +132,7 @@ export const FormCreator = <P extends IFormProps>(Component: React.ComponentType
             const newValue: string = this.state.data[itemProps.name] ? this.state.data[itemProps.name] : ""
             const initialElement = {
                 name: itemProps.name,
+                initialvalue: itemProps.initialvalue,
                 label: itemProps.label,
                 onChange: (e: any) => {
                     if (comp.props.onChange) {
