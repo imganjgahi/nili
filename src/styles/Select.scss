@@ -5,7 +5,7 @@
 .displayContainer {
     display: flex;
     justify-content: space-between;
-    border: 1px solid purple;
+    border: 1px solid $theme_light;
     background-color: white;
 }
 .inputContainer {
@@ -18,14 +18,14 @@
 }
 .selectBtn {
     width: 25px;
-    border-left: 1px solid purple;
+    border-left: 1px solid $theme_light;
     cursor: pointer;
     font-size: 10px;
 }
 .optionContainer {
     position: absolute;
     width: 100%;
-    border: 1px solid purple;
+    border: 1px solid $theme_light;
     left: 0;
     box-sizing: border-box;
     max-height: 210px;
@@ -41,7 +41,7 @@
 .activeOption,
 .selectOption:focus,
 .selectOption:hover {
-    background-color: purple;
+    background-color: $theme_light;
     color: white;
 }
 .selectDisplay {
@@ -51,6 +51,6 @@
 }
 .optionHide {
     max-height: 0px;
-    top: 90%;
     z-index: -1;
+    border: none;
 }

@@ -160,7 +160,6 @@ class Select extends React.Component<IProps, IState> {
         }
     }
     onSelectHandler = (data: any) => {
-        console.log("DATA: ", data)
         const displayProp = this.props.displayProp ? this.props.displayProp : "title";
         const valueProp = this.props.valueProp ? this.props.valueProp : "id";
         this.setState({
@@ -205,7 +204,6 @@ class Select extends React.Component<IProps, IState> {
                 const optionElement = (z: number) => (<div key={i} id={option[valueProp]}
                     className={z === option[valueProp] ? "selectOption activeOption" : "selectOption"}
                     onClick={() => {
-                        console.log("onClick : ", option);
                         this.onSelectHandler(option)
                     }}>
                     {option[displayProp]}
@@ -213,8 +211,7 @@ class Select extends React.Component<IProps, IState> {
                 options.push({ [valueProp]: option[valueProp], [displayProp]: option[displayProp], optionElement })
             })
             this.setState({ optionList: options })
-            return
-        }
+        }else {
         React.Children.forEach(this.props.children, (x, i) => {
             let y = x as React.ReactElement;
             if (y.type === Option) {
@@ -222,7 +219,6 @@ class Select extends React.Component<IProps, IState> {
                     id={y.props[valueProp]}
                     className={z === y.props[valueProp] ? "selectOption activeOption" : "selectOption"}
                     onClick={() => {
-                        console.log("OPTION: ", y)
                         this.onSelectHandler(y)
                     }}>
                     {y.props[displayProp]}
@@ -240,6 +236,7 @@ class Select extends React.Component<IProps, IState> {
             }
         });
         this.setState({ optionList: options })
+    }
 
     }
 
