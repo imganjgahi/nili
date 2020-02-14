@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/mysqlDatabase');
-const Task = require("./task")
 const Notebook = sequelize.define('notebook', {
     id: {
         type: Sequelize.INTEGER,
@@ -23,6 +22,4 @@ const Notebook = sequelize.define('notebook', {
 
 });
 
-Notebook.hasMany(Task,{as: 'tasks', foreignKey: 'noteBookId'});
-Task.belongsTo(Notebook, {foreignKey: 'noteBookId'});
 module.exports = Notebook;
