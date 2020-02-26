@@ -5,10 +5,11 @@
 	padding: 0 20px;
 	background-color: $header;
     align-items: center;
+    color: $light_font;
     .logo {
         margin: 0;
         a {
-            color: white;
+            color: $light_font;
             text-decoration: none;
         }
     }
@@ -21,7 +22,7 @@
     .navMenuItem {
         cursor: pointer;
         a {
-            color: white;
+            color: $light_font;
             text-decoration: none;
         }
     }

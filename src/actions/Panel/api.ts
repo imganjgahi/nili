@@ -7,19 +7,12 @@ export const PanelApi = {
         return axios.get(PanelUrl+ "/users/panel")
     },
 
-    // NOTEBOOK API
+    // PRODUCTS API
     createNoteBook : async (data: any) => {
-        return axios.post(PanelUrl+ "/notebooks", data)
+        return axios.post(PanelUrl+ "/products", data)
     },
     deleteNoteBook : async (notebookId: number) => {
-        return axios.delete(PanelUrl+ "/notebooks/"+notebookId)
+        return axios.delete(PanelUrl+ "/products/"+notebookId)
     },
-
-    //TASK API
-    createTask : async (data: any) => {
-        return axios.post(PanelUrl+ "/Tasks", data)
-    },
-    deleteTask : async (taskId: number) => {
-        return axios.delete(PanelUrl+ "/Tasks/"+taskId)
-    }
+    
 }

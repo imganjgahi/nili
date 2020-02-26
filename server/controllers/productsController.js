@@ -41,7 +41,7 @@ exports.updateProducts = (req, res, next) => {
     ProductModel.findOne({ where: { userId: req.user.id, id: req.params.id } }).then(product => {
 
         if (!product) {
-            return res.status(400).json({ message: "Task not found" })
+            return res.status(400).json({ message: "Product not found" })
         }
         product.title = data.title;
         lead= data.lead;
@@ -52,7 +52,7 @@ exports.updateProducts = (req, res, next) => {
         previewImage= data.previewImage;
         product.userId= req.user.id;
         product.save();
-        return res.status(200).json({ message: "Task was updated" })
+        return res.status(200).json({ message: "Product was updated" })
     }).catch(err => {
         console.log(err.message)
         next(err)
@@ -63,10 +63,10 @@ exports.deleteProducts = (req, res, next) => {
     ProductModel.findOne({ where: { userId: req.user.id, id: req.params.id } }).then(product => {
 
         if (!product) {
-            return res.status(400).json({ message: "Task not found" })
+            return res.status(400).json({ message: "Product not found" })
         }
         product.destroy().then(() => {
-            return res.status(200).json({ message: "Task was Deleted" })
+            return res.status(200).json({ message: "Product was Deleted" })
         })
     }).catch(err => {
         console.log(err.message)
