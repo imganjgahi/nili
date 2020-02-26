@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/mysqlDatabase');
-const Task = sequelize.define('task', {
+const Product = sequelize.define('product', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,20 +11,30 @@ const Task = sequelize.define('task', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    lead: {
+        type: Sequelize.STRING,
+        defaultValue: "No Lead"
+    },
     description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
     },
     category: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "No Category"
     },
     status: {
         type: Sequelize.TINYINT,
         defaultValue: 1
     },
-    avatar: {
+    previewImage: {
         type: Sequelize.STRING,
-        defaultValue: "task.jpg"
+        defaultValue: "product.jpg"
+    },
+    price: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
     }
 
 })
-module.exports = Task;
+module.exports = Product;

@@ -5,8 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const server = express();
 const users = require('./routes/users');
-const tasks = require('./routes/tasks');
-const noteBooks = require('./routes/noteBooks');
+const products = require('./routes/products');
 const webpackConfig = require("../webpack/webpack.dev.js");
 const sequelize = require("./db/mysqlDatabase");
 const compiler = webpack(webpackConfig)
@@ -35,8 +34,7 @@ require('./config/passport')(passport);
 
 //Routes
 server.use('/api/users', users);
-server.use('/api/tasks', tasks);
-server.use('/api/notebooks', noteBooks);
+server.use('/api/products', products);
 
 server.get('*', (req,res) =>{
     res.sendFile(path.resolve(__dirname,'../public/index.html'));

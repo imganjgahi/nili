@@ -1,29 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserModel = require("../models/user")
-const NoteBookModel = require("../models/noteBook")
-const TaskModel = require("../models/task")
 
 
 
 exports.userPanel = (req, res, next) => {
-    UserModel.findOne({
-        where: { id: req.user.id },
-        attributes: ['name'],
-        include: [
-            { model: NoteBookModel, as: "notebooks", 
-            attributes: ['id', 'title'],
-            where: {status: 1},
-            order: [
-                ["id", "DESC"]
-            ], limit: 5 },
-            { model: TaskModel, as: "tasks", 
-            attributes: ['id', 'title'],
-            where: {status: 1},
-            order: [
-                ["id", "DESC"]
-            ], limit: 5 },
-        ]}).then(data => {
+    UserModel.findOne({where: { id: req.user.id }}).then(data => {
         return res.json(data)
     }).catch(err => {
         console.log(err);
