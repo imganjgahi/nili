@@ -15,7 +15,7 @@ exports.getAllProductsForPanel = (req, res, next) => {
 exports.getAllProducts = (req, res, next) => {
     ProductModel.findAll({ where: { status: {[Op.gte]: 1} }, 
         include:[
-            {model: CategoryModel, attributes: ['id','title'] }
+            {model: CategoryModel, attributes: ['id','title'], where: { status: {[Op.gte]: 1}} }
         ] }).then(data => {
         return res.json({ data })
     }).catch(err => {
@@ -60,13 +60,13 @@ exports.updateProducts = (req, res, next) => {
             return res.status(400).json({ message: "Product not found" })
         }
         product.title = data.title;
-        lead= data.lead;
-        description= data.description;
-        categoryId= data.categoryId;
-        tags= data.tags;
-        status= data.status;
-        price= data.price;
-        previewImage= data.previewImage;
+        product.lead= data.lead;
+        product.description= data.description;
+        product.categoryId= data.categoryId;
+        product.tags= data.tags;
+        product.status= data.status;
+        product.price= data.price;
+        product.previewImage= data.previewImage;
         product.userId= req.user.id;
         product.save();
         return res.status(200).json({ message: "Product was updated" })

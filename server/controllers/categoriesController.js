@@ -65,9 +65,9 @@ exports.updateCategories = (req, res, next) => {
             return res.status(400).json({ message: "category not found" })
         }
         category.title = data.title;
-        description= data.description;
-        status= data.status;
-        previewImage= data.previewImage;
+        category.description= data.description;
+        category.status= data.status;
+        category.previewImage= data.previewImage;
         category.userId= req.user.id;
         category.save();
         return res.status(200).json({ message: "category was updated" })
