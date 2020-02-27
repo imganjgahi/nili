@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/mysqlDatabase');
-const Product = sequelize.define('product', {
+const Category = sequelize.define('category', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -11,16 +11,9 @@ const Product = sequelize.define('product', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    lead: {
-        type: Sequelize.STRING,
-        defaultValue: "بدون توضیحات"
-    },
     description: {
         type: Sequelize.STRING,
-        allowNull: false
-    },
-    tags: {
-        type: Sequelize.STRING,
+        defaultValue: "بدون توضیحات"
     },
     status: {
         type: Sequelize.TINYINT,
@@ -28,12 +21,8 @@ const Product = sequelize.define('product', {
     },
     previewImage: {
         type: Sequelize.STRING,
-        defaultValue: "product.jpg"
-    },
-    price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        defaultValue: "category.jpg"
     }
 
 })
-module.exports = Product;
+module.exports = Category;

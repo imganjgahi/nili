@@ -8,7 +8,7 @@ const ProductsController = require('../controllers/productsController');
 
 
 //TASKS ROUTES START WHIT /TASKS/
-router.get('/', passport.authenticate('jwt', {session: false}), ProductsController.getAllProducts);
+router.get('/', ProductsController.getAllProducts);
 router.get('/:id', passport.authenticate('jwt', {session: false}), ProductsController.getProductsById);
 router.post('/', passport.authenticate('jwt', {session: false}), ProductsController.createProducts);
 router.put('/:id', passport.authenticate('jwt', {session: false}), ProductsController.updateProducts);

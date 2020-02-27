@@ -1,7 +1,22 @@
 const ProductModel = require("../models/product")
+const CategoryModel = require("../models/category")
+const { Op } = require("sequelize");
+
+
+exports.getAllProductsForPanel = (req, res, next) => {
+    ProductModel.findAll({ where: { userId: req.user.id } }).then(data => {
+        return res.json({ data })
+    }).catch(err => {
+        console.log(err.message)
+        next(err)
+    });
+};
 
 exports.getAllProducts = (req, res, next) => {
-    ProductModel.findAll({ where: { userId: req.user.id, status: 1 } }).then(data => {
+    ProductModel.findAll({ where: { status: {[Op.gte]: 1} }, 
+        include:[
+            {model: CategoryModel, attributes: ['id','title'] }
+        ] }).then(data => {
         return res.json({ data })
     }).catch(err => {
         console.log(err.message)
@@ -22,7 +37,8 @@ exports.createProducts = (req, res, next) => {
         title: data.title,
         lead: data.lead,
         description: data.description,
-        category: data.category,
+        categoryId: data.categoryId,
+        tags: data.tags,
         status: data.status,
         price: data.price,
         previewImage: "product.jpg",
@@ -46,7 +62,8 @@ exports.updateProducts = (req, res, next) => {
         product.title = data.title;
         lead= data.lead;
         description= data.description;
-        category= data.category;
+        categoryId= data.categoryId;
+        tags= data.tags;
         status= data.status;
         price= data.price;
         previewImage= data.previewImage;

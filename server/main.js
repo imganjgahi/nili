@@ -4,8 +4,14 @@ const webpack = require('webpack');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const server = express();
+
+//ROUTES PATH
 const users = require('./routes/users');
 const products = require('./routes/products');
+const panel = require('./routes/panel');
+const categories = require('./routes/categories');
+
+//Configs
 const webpackConfig = require("../webpack/webpack.dev.js");
 const sequelize = require("./db/mysqlDatabase");
 const compiler = webpack(webpackConfig)
@@ -35,6 +41,8 @@ require('./config/passport')(passport);
 //Routes
 server.use('/api/users', users);
 server.use('/api/products', products);
+server.use('/api/panel', passport.authenticate('jwt', {session: false}),  panel);
+server.use('/api/categories', categories);
 
 server.get('*', (req,res) =>{
     res.sendFile(path.resolve(__dirname,'../public/index.html'));
